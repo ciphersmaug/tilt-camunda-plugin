@@ -1,0 +1,24 @@
+{
+  "name": "TILT",
+  "prefix": "tilt",
+  "uri": "https://github.com/Transparency-Information-Language/meta",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "TiltMetaProcess",
+      "extends": [
+        "bpmn:Process"
+      ],
+      "properties": [
+        {
+          "name": "metaName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ]
+}

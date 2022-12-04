@@ -24,9 +24,6 @@ export default class ProcessIoExtensionProvider {
 
   getGroups(element) {
     return groups => {
-      if (!is(element, 'bpmn:Process') || is(element, 'bpmn:Participant') && !getProcessRef(element)) {
-        return groups;
-      }
 
       groups = groups.slice();
 
