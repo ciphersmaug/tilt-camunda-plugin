@@ -4,9 +4,8 @@ import {
 } from 'bpmn-js/lib/util/ModelUtil';
 
 import {
-  createInputSpecificationGroup,
-  createOutputSpecificationGroup
-} from './props/process-io-groups';
+  createTiltMetaGroup
+} from './props/tilt-property-groups';
 
 
 
@@ -16,7 +15,7 @@ import {
  *
  * @param {didi.Injector} injector
  */
-export default class ProcessIoExtensionProvider {
+export default class TiltPropertiesExtensionProvider {
   constructor(propertiesPanel, injector) {
     this._injector = injector;
     propertiesPanel.registerProvider(this);
@@ -24,23 +23,20 @@ export default class ProcessIoExtensionProvider {
 
   getGroups(element) {
     return groups => {
-      if (!is(element, 'bpmn:Process') || is(element, 'bpmn:Participant') && !getProcessRef(element)) {
-        return groups;
-      }
 
       groups = groups.slice();
-
-      groups.splice(1, 0,
-        createInputSpecificationGroup(element, this._injector),
-        createOutputSpecificationGroup(element, this._injector)
-      );
-
+      if(is(element, 'bpmn:Process')) {
+        groups.push(createTiltMetaGroup(element,this._injector));
+      }
+      if(is(element, 'bpmn:StartEvent')) {
+        groups.push(createTiltMetaGroup(element,this._injector));
+      }
       return groups;
     }
   }
 }
 
-ProcessIoExtensionProvider.$inject = [
+TiltPropertiesExtensionProvider.$inject = [
   'propertiesPanel',
   'injector'
 ];

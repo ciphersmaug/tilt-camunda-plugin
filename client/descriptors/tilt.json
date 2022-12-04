@@ -1,0 +1,53 @@
+{
+  "name": "TILT",
+  "uri": "mytilturi.com",
+  "prefix": "tilt",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "Meta",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "created",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "modified",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "version",
+          "isAttr": true,
+          "type": "Integer"
+        },
+        {
+          "name": "language",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ],
+  "emumerations": [],
+  "associations": []
+}

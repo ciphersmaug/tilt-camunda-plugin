@@ -1,7 +1,8 @@
 import {
-  registerPlatformBpmnJSPlugin
+  registerPlatformBpmnJSPlugin, registerBpmnJSModdleExtension
 } from 'camunda-modeler-plugin-helpers';
 
-import propertiesPanelExtensionModule from './properties-panel';
-
-registerPlatformBpmnJSPlugin(propertiesPanelExtensionModule);
+import tiltPropertiesExtensionModule from './tilt-properties';
+import tiltModdleDescriptor from "./descriptors/tilt";
+registerPlatformBpmnJSPlugin(tiltPropertiesExtensionModule);
+registerBpmnJSModdleExtension(tiltModdleDescriptor);

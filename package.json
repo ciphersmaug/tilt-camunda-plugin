@@ -1,35 +1,42 @@
 {
-  "name": "camunda-modeler-process-io-specification-plugin",
-  "version": "0.3.0",
-  "description": "Document BPMN process inputs and outputs using the Camunda Modeler",
+  "name": "tilt-camunda-plugin",
+  "version": "0.0.1",
+  "description": "Extends BPMN with TILT mappings used to enable privacy modelling in BPMN.",
   "main": "index.js",
   "scripts": {
     "all": "run-s bundle",
     "bundle": "webpack",
-    "bundle:watch": "webpack --watch"
+    "bundle:watch": "webpack --watch",
+    "dev": "webpack && ~/Projects/camunda-modeler-5.4.2-linux-x64/camunda-modeler"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/camunda/camunda-modeler-process-io-specification-plugin.git"
+    "url": "git+https://github.com/ciphersmaug/tilt-camunda-plugin"
   },
   "keywords": [
     "camunda",
     "modeler",
-    "plugin"
+    "plugin",
+    "tilt"
   ],
-  "author": "Nico Rehwaldt",
+  "author": "Jannis Kiesel",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "camunda-modeler-plugin-helpers": "^5.0.0",
     "camunda-modeler-webpack-plugin": "^0.1.0",
+    "install-peers": "^1.0.4",
     "npm-run-all": "^4.1.5",
-    "webpack": "^4.28.1",
+    "webpack": "^5.75.0",
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "@bpmn-io/properties-panel": "^1.0.1",
     "bpmn-js": "^8.8.3",
+    "bpmn-js-properties-panel": "^1.9.0",
+    "camunda-bpmn-js-behaviors": "^0.4.0",
     "diagram-js": "^7.2.3",
-    "inherits": "^2.0.3"
+    "inherits": "^2.0.3",
+    "preact": "^10.11.3"
   }
 }
