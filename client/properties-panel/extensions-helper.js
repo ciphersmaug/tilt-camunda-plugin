@@ -18,6 +18,15 @@ export function getExtensionElements(element) {
 
   return businessObject.get('extensionElements');
 }
+export function getXMLTiltMetaProperties(element){
+  const bo = getBusinessObject(element);
+  const properties = findExtensions(bo,'tilt:Meta');
+  console.log(properties)
+  if (properties.length) {
+    return properties[0];
+  }
+  return null;
+}
 
 export function getCamundaProperties(element) {
   const bo = getBusinessObject(element);

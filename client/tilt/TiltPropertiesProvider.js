@@ -37,7 +37,6 @@ export default function TiltPropertiesProvider(propertiesPanel, translate) {
      * @return {Object[]} modified groups
      */
     return function(groups) {
-      debugger;
       if(is(element,'bpmn:Process')){
         groups.push(createMetaGroup(element, translate));
       }

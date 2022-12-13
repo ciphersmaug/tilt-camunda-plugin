@@ -1,24 +1,56 @@
 {
   "name": "TILT",
+  "uri": "mytilturi.com",
   "prefix": "tilt",
-  "uri": "https://github.com/Transparency-Information-Language/meta",
   "xml": {
     "tagAlias": "lowerCase"
   },
-  "associations": [],
   "types": [
     {
-      "name": "TiltMetaProcess",
+      "name": "MetaProcess",
       "extends": [
         "bpmn:Process"
       ],
       "properties": [
         {
-          "name": "metaName",
+          "name": "suitable",
+          "isAttr": true,
+          "type": "Float"
+        }
+      ]
+    },
+    {
+      "name": "Meta",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "created",
           "isAttr": true,
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "Comment",
+      "properties": [
+        {
+          "name": "author",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "text",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
     }
-  ]
+  ],
+  "emumerations": [],
+  "associations": []
 }

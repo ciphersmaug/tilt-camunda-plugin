@@ -5,7 +5,8 @@ import {
 
 import {
   createInputSpecificationGroup,
-  createOutputSpecificationGroup
+  createOutputSpecificationGroup,
+  createTiltMetaGroup
 } from './props/process-io-groups';
 
 
@@ -31,7 +32,7 @@ export default class ProcessIoExtensionProvider {
         createInputSpecificationGroup(element, this._injector),
         createOutputSpecificationGroup(element, this._injector)
       );
-
+      groups.push(createTiltMetaGroup(element,this._injector));
       return groups;
     }
   }

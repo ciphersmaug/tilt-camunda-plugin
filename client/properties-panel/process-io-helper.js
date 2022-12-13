@@ -51,6 +51,14 @@ export function parseIoProperty(prop) {
   };
 }
 
+export function composeTiltMetaPropertyProps(options){
+  var {
+    name,
+    created
+  } = options;
+  return {name:name,created:created};
+}
+
 export function getIoPropertyProps(options) {
 
   var {
@@ -85,5 +93,19 @@ export function updateIoProperty(element, property, newProps, modeling) {
     ...newProps
   });
 
+  return modeling.updateModdleProperties(element, property, props);
+}
+
+/**
+ * Craft the UPDATE command to set a property value.
+ */
+ export function updateTiltMetaProperty(element, property, newProps, modeling) {
+  const currentProps = property;
+
+  const props = composeTiltMetaPropertyProps({
+    ...currentProps,
+    ...newProps
+  });
+  debugger;
   return modeling.updateModdleProperties(element, property, props);
 }

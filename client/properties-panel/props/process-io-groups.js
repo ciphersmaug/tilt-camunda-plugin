@@ -9,19 +9,52 @@ import {
   createIoProperty,
   isIoProperty,
   parseIoProperty,
-  updateIoProperty
+  updateIoProperty,
+  updateTiltMetaProperty
 } from '../process-io-helper';
 
 import {
   createExtensionElements,
   createCamundaProperties,
   getExtensionElements,
-  getCamundaProperties
+  getCamundaProperties,
+  getXMLTiltMetaProperties
 } from '../extensions-helper';
 
 import Ids from 'ids';
 
 const ids = new Ids([ 16, 36, 1 ]);
+
+export function createTiltMetaGroup(element, injector){
+  const processBo = getProcessBo(element);
+  const properties = getTiltMetaProperties(processBo);
+  const metaGroup = {
+    id: "meta-specification-group",
+    label: "TILT elements",
+    component: ListGroup,
+    items: [
+      {
+        id: "tilt-meta-list",
+        label: "Meta information",
+        entries: [
+          {
+            id: "meta-name",
+            component: TiltMetaNameField,
+            properties: properties,
+            element
+          },
+          {
+            id: "meta-created",
+            component: TiltMetaNameField,
+            properties: properties,
+            element
+          }
+        ]
+      }
+    ]
+  }
+  return metaGroup
+}
 
 export function createInputSpecificationGroup(element, injector) {
   const translate = injector.get('translate');
@@ -179,6 +212,47 @@ function PropertyItem(props) {
     remove: removeFactory(element, property, injector.get('modeling'))
   };
 }
+function TiltMetaNameField(props) {
+  const {
+    id,
+    element,
+    properties
+  } = props;
+
+  console.log(props)
+  console.log(properties)
+
+  const modeling = useService('modeling');
+  const translate = useService('translate');
+  const debounce = useService('debounceInput');
+
+  const setValue = (value) => {
+    updateTiltMetaProperty(element, properties, {name:value || ''}, modeling);
+  };
+
+  const getValue = () => {
+    return properties.name || "";
+  };
+
+  // return error if contains spaces
+  const validate = (value) => {
+    if (!value) {
+      return translate('This field must have a value.');
+    }
+  };
+
+  return TextFieldEntry({
+    element: properties,
+    id,
+    label: "Name",
+    description: "The Name of the Company",
+    getValue,
+    setValue,
+    debounce,
+    validate
+  });
+}
+
 
 function Name(props) {
   const {
@@ -300,6 +374,16 @@ function getProcessBo(element) {
   }
 
   return bo;
+}
+
+function getTiltMetaProperties(processBo){
+  const tiltMetaProperties = getXMLTiltMetaProperties(processBo);
+
+  console.log(tiltMetaProperties)
+  if (!tiltMetaProperties) {
+    return [];
+  }
+  return tiltMetaProperties;
 }
 
 function getIOSpecificationProperties(type, processBo) {
