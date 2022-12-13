@@ -7,19 +7,6 @@
   },
   "types": [
     {
-      "name": "MetaProcess",
-      "extends": [
-        "bpmn:Process"
-      ],
-      "properties": [
-        {
-          "name": "suitable",
-          "isAttr": true,
-          "type": "Float"
-        }
-      ]
-    },
-    {
       "name": "Meta",
       "superClass": [ "Element" ],
       "properties": [
@@ -32,20 +19,30 @@
           "name": "created",
           "isAttr": true,
           "type": "String"
-        }
-      ]
-    },
-    {
-      "name": "Comment",
-      "properties": [
+        },
         {
-          "name": "author",
+          "name": "modified",
           "isAttr": true,
           "type": "String"
         },
         {
-          "name": "text",
-          "isBody": true,
+          "name": "version",
+          "isAttr": true,
+          "type": "Integer"
+        },
+        {
+          "name": "language",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "url",
+          "isAttr": true,
           "type": "String"
         }
       ]

@@ -54,9 +54,14 @@ export function parseIoProperty(prop) {
 export function composeTiltMetaPropertyProps(options){
   var {
     name,
-    created
+    created,
+    modified,
+    version,
+    language,
+    status,
+    url
   } = options;
-  return {name:name,created:created};
+  return {name,created,modified,version,language,status,url};
 }
 
 export function getIoPropertyProps(options) {
