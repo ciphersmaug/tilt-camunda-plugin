@@ -21,7 +21,6 @@ export function getExtensionElements(element) {
 export function getXMLTiltMetaProperties(element){
   const bo = getBusinessObject(element);
   const properties = findExtensions(bo,'tilt:Meta');
-  console.log(properties)
   if (properties.length) {
     return properties[0];
   }
@@ -53,8 +52,7 @@ export function getTiltProperties(element) {
 
 export function createExtensionElements(element, bpmnFactory) {
   const bo = getBusinessObject(element);
-
-  return createElement('bpmn:ExtensionElements', { values: [] }, bo, bpmnFactory);
+  return createElement('bpmn:ExtensionElements', { values: []}, bo, bpmnFactory);
 }
 
 export function createCamundaProperties(extensionElements, bpmnFactory, properties) {
@@ -62,6 +60,9 @@ export function createCamundaProperties(extensionElements, bpmnFactory, properti
 }
 export function createTiltProperties(extensionElements, bpmnFactory, properties) {
   return createElement('tilt:Properties', properties, extensionElements, bpmnFactory);
+}
+export function createTiltMetaProperty(extensionElements, bpmnFactory, properties) {
+  return createElement('tilt:Meta', properties, extensionElements, bpmnFactory);
 }
 
 export function createElement(elementType, properties, parent, factory) {

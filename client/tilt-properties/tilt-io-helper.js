@@ -21,6 +21,9 @@ export function composeTiltMetaPropertyProps(options){
     ...currentProps,
     ...newProps
   });
-  debugger;
   return modeling.updateModdleProperties(element, property, props);
+}
+
+export function createMetaProperty(factory, options) {
+  return factory.create('tilt:Meta', composeTiltMetaPropertyProps(options));
 }
