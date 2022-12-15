@@ -23,6 +23,7 @@ import {
   TiltMetaStatusField,
   TiltMetaURLField
 } from '../fields/meta'
+import { add } from 'diagram-js/lib/util/Collections';
 
 function addMetaFactory(element, injector) {
   const bpmnFactory = injector.get('bpmnFactory'),
@@ -30,10 +31,6 @@ function addMetaFactory(element, injector) {
 
   function add(event) {
     event.stopPropagation();
-
-    const property = createMetaProperty(bpmnFactory, {
-      name:""
-    });
 
     const businessObject = getBusinessObject(element);
 
@@ -46,55 +43,50 @@ function addMetaFactory(element, injector) {
       updatedBusinessObject = businessObject;
 
       const extensionElements = createExtensionElements(businessObject, bpmnFactory),
-            tiltMetaProperties = createTiltMetaProperty(extensionElements, bpmnFactory, { values: [ property ] });
+            tiltMetaProperties = createTiltMetaProperty(extensionElements, bpmnFactory, {});
       extensionElements.values.push(tiltMetaProperties);
-      //property.$parent = tiltMetaProperties;
 
       update = { extensionElements };
     } else if (!tiltMetaProperties) {
       updatedBusinessObject = extensionElements;
 
-      const tiltMetaProperties = createTiltMetaProperty(extensionElements, bpmnFactory, { values: [ property ] });
-      property.$parent = tiltMetaProperties;
+      const tiltMetaProperties = createTiltMetaProperty(extensionElements, bpmnFactory, {});
 
       update = { values: extensionElements.get('values').concat(tiltMetaProperties) };
-    } else {
-      updatedBusinessObject = tiltMetaProperties;
-      property.$parent = tiltMetaProperties;
-
-      update = { values: tiltMetaProperties.get('values').concat(property) };
     }
-
     modeling.updateModdleProperties(element, updatedBusinessObject, update);
   }
 
   return add;
 }
+function removeFactory(element, property, modeling) {
+  return function(event) {
+    event.stopPropagation();
 
+    const businessObject = getBusinessObject(element);
+
+    const tiltMetaProperty = getTiltMetaProperty(businessObject);
+
+    modeling.updateModdleProperties(element, tiltMetaProperty, {
+      values: camundaProperties.get('values').filter(value => value !== property)
+    });
+  };
+}
 
 
 
 export function createTiltMetaGroup(element, injector){
-  const bpmnFactory = injector.get('bpmnFactory');
-  const modeling = injector.get('modeling');
-  const extensionElements = getExtensionElements(element);
-  let update;
-  if(!extensionElements){
-    
-    //const newExtensionElement = createExtensionElements(getBusinessObject(element),bpmnFactory);
-    //const metaProperty = createMetaProperty(bpmnFactory,{name:"Neuer Name"});//createTiltMetaProperty(extensionElements, bpmnFactory, getTiltMetaProperties(processBo))
-    //newExtensionElement.values.push(metaProperty);
-    //update = {newExtensionElement};
-    //console.log(newExtensionElement);
-    //modeling.updateModdleProperties(element, newExtensionElement, update);//,{extensionElements})
-  }
-
   const processBo = getProcessBo(element);
   const properties = getTiltMetaProperties(processBo);
+  var addButton = null;
+  if(properties.length==0){
+    addButton = addMetaFactory(element, injector)
+  };
+
   const metaGroup = {
     id: "meta-specification-group",
     label: "TILT elements",
-    add:addMetaFactory(element, injector),
+    add:addButton,
     component: ListGroup,
     items: [
       {
