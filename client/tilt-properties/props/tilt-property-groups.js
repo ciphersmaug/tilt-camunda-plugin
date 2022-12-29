@@ -59,16 +59,20 @@ function addMetaFactory(element, injector) {
 
   return add;
 }
+
 function removeFactory(element, property, modeling) {
+
   return function(event) {
     event.stopPropagation();
-
+    console.log(property)
+    debugger;
     const businessObject = getBusinessObject(element);
 
-    const tiltMetaProperty = getTiltMetaProperty(businessObject);
+    //const tiltMetaProperty = getTiltMetaProperties(businessObject);
+    const extensionElements = getExtensionElements(businessObject);
 
-    modeling.updateModdleProperties(element, tiltMetaProperty, {
-      values: camundaProperties.get('values').filter(value => value !== property)
+    modeling.updateModdleProperties(element, extensionElements, {
+      values: extensionElements.get('values').filter(value => value !== property)
     });
   };
 }
@@ -135,7 +139,8 @@ export function createTiltMetaGroup(element, injector){
             properties: properties,
             element
           }
-        ]
+        ],
+        remove: removeFactory(element, properties, injector.get('modeling'))
       }
     ]
   }
