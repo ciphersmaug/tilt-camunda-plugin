@@ -12,15 +12,13 @@ jobs:
     steps:
       - name: Create Build
         id: create_build
-        uses: 
-          - actions/checkout@v3
-          - actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
-        run: 
-          - npm install
-          - npm run all
-          - zip tilt-release.zip -r ./dist ./client ./index.js ./README.md
+      - run: npm install
+      - run: npm run all
+      - run: zip tilt-release.zip -r ./dist ./client ./index.js ./README.md
 
       - name: Create Release
         id: create_release
