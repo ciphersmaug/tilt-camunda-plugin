@@ -11,30 +11,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Build
-      - id: create_build
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+        id: create_build
+        uses: actions/checkout@v3
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: npm install
-      - run: npm run all
-      - run: zip tilt-release.zip -r ./dist ./client ./index.js ./README.md
+        run: npm install
+        run: npm run all
+        run: zip tilt-release.zip -r ./dist ./client ./index.js ./README.md
+
       - name: Create Release
-      - id: create_release
-      - uses: actions/create-release@v1
-      - env:
+        id: create_release
+        uses: actions/create-release@v1
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - with:
+        with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+
       - name: Upload Release Asset
-      - id: upload-release-asset 
-      - uses: actions/upload-release-asset@v1
-      - env:
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - with:
+        with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./tilt-release.zip
           asset_name: tilt-release.zip
