@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'BPMN Process Input/Output Definitions',
-  script: './dist/client.js'
+  name: 'TILT Extension',
+  script: './dist/client.js',
+  menu: './client/tilt-extractor/menu.js'
 };
