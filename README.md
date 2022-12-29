@@ -13,6 +13,8 @@ Package plugin to `dist/client.js`:
 ```sh
 npm run bundle
 
+
+To test a git Change
 # or
 
 npm run bundle:watch
