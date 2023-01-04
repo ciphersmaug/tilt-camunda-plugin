@@ -2,6 +2,6 @@
 
 module.exports = {
   name: 'TILT Extension',
-  script: './dist/client.js',
-  menu: './client/tilt-extractor/menu.js'
+  script: './dist/client.js'
+  //menu: './client/tilt-extractor/menu.js'
 };
