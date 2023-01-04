@@ -54,13 +54,6 @@ export function createExtensionElements(element, bpmnFactory) {
   const bo = getBusinessObject(element);
   return createElement('bpmn:ExtensionElements', { values: []}, bo, bpmnFactory);
 }
-
-export function createCamundaProperties(extensionElements, bpmnFactory, properties) {
-  return createElement('camunda:Properties', properties, extensionElements, bpmnFactory);
-}
-export function createTiltProperties(extensionElements, bpmnFactory, properties) {
-  return createElement('tilt:Properties', properties, extensionElements, bpmnFactory);
-}
 export function createTiltMetaProperty(extensionElements, bpmnFactory, properties) {
   return createElement('tilt:Meta', properties, extensionElements, bpmnFactory);
 }

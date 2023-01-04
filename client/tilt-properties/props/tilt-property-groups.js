@@ -1,29 +1,18 @@
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 import { ListGroup} from '@bpmn-io/properties-panel';
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+import { useService } from 'bpmn-js-properties-panel';
+import { TextFieldEntry } from '@bpmn-io/properties-panel';
 import { 
   getXMLTiltMetaProperties, 
   getExtensionElements,
   createExtensionElements,
-  createCamundaProperties,
-  getCamundaProperties,
   createTiltMetaProperty
 } from '../extensions-helper';
-
+import { createMetaPropertyGroup } from './meta-property-group';
 import {
-  createMetaProperty
-} from '../tilt-io-helper'
-
-import {
-  TiltMetaNameField,
-  TiltMetaCreatedField,
-  TiltMetaModifiedField,
-  TiltMetaVersionField,
-  TiltMetaLanguageField,
-  TiltMetaStatusField,
-  TiltMetaURLField
-} from '../fields/meta'
-import { add } from 'diagram-js/lib/util/Collections';
+  updateTiltMetaProperty
+} from '../tilt-io-helper';
 
 function addMetaFactory(element, injector) {
   const bpmnFactory = injector.get('bpmnFactory'),
@@ -60,7 +49,7 @@ function addMetaFactory(element, injector) {
   return add;
 }
 
-function removeFactory(element, property, modeling) {
+export function removeFactory(element, property, modeling) {
 
   return function(event) {
     event.stopPropagation();
@@ -93,58 +82,55 @@ export function createTiltMetaGroup(element, injector){
     add:addButton,
     component: ListGroup,
     items: [
-      {
-        id: "tilt-meta-list",
-        label: "Meta information",
-        entries: [
-          {
-            id: "meta-name",
-            component: TiltMetaNameField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-created",
-            component: TiltMetaCreatedField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-modified",
-            component: TiltMetaModifiedField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-version",
-            component: TiltMetaVersionField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-language",
-            component: TiltMetaLanguageField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-status",
-            component: TiltMetaStatusField,
-            properties: properties,
-            element
-          },
-          {
-            id: "meta-url",
-            component: TiltMetaURLField,
-            properties: properties,
-            element
-          }
-        ],
-        remove: removeFactory(element, properties, injector.get('modeling'))
-      }
+      createMetaPropertyGroup(properties,element,injector)
     ]
   }
   return metaGroup
+}
+
+
+export function createTextField(props){
+  const {
+    id,
+    element,
+    properties,
+    type_name,
+    type_label,
+    type_description,
+    validation_regex,
+    validation_text
+  } = props;
+
+  const modeling = useService('modeling');
+  const translate = useService('translate');
+  const debounce = useService('debounceInput');
+
+  const setValue = (value) => {
+    var newPropertyObject = {};
+    newPropertyObject[type_name] = value || '';
+    updateTiltMetaProperty(element, properties, newPropertyObject, modeling);
+  };
+
+  const getValue = () => {
+    return properties[type_name] || "";
+  };
+
+  const validate = (value) => {
+    if (!validation_regex.test(value)) {
+      return translate(validation_text);
+    }
+  };
+
+  return TextFieldEntry({
+    element: properties,
+    id,
+    label: type_label,
+    description: type_description,
+    getValue,
+    setValue,
+    debounce,
+    validate
+  });
 }
 
 

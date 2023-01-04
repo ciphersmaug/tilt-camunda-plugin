@@ -86,6 +86,17 @@ This TILT extension for the Camunda BPMN modeler currently supports Camunda Plat
 
 4. Execute the Camunda Modeler
 
+## Creation of a Release
+1. Create a `main` - branch commit and tag it in the following schema: `v*.*.*`.
+
+    ```
+    git tag -a v0.0.1
+    ```
+2. Push the branch to origin using the following command: 
+    ```
+    git push origin v0.0.1
+    ```
+
 ## Licence
 
 **MIT** see: [LICENSE.md](LICENSE.md)

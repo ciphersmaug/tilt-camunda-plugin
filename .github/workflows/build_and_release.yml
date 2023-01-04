@@ -15,7 +15,7 @@ jobs:
       - run: |
           npm install
           npm run all
-          zip tilt-release.zip -r ./dist ./client ./index.js ./README.md
+          zip tilt-release.zip -r ./dist ./client ./index.js ./README.md ./LICENSE.md
 
       - name: Create Release
         id: create_release

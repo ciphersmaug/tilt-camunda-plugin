@@ -5,6 +5,50 @@ import {
   updateTiltMetaProperty
 } from '../tilt-io-helper';
 
+export function createTextField(props){
+  const {
+    id,
+    element,
+    properties,
+    type_name,
+    type_label,
+    type_description,
+    validation_regex,
+    validation_text
+  } = props;
+
+  const modeling = useService('modeling');
+  const translate = useService('translate');
+  const debounce = useService('debounceInput');
+
+  const setValue = (value) => {
+    var newPropertyObject = {};
+    newPropertyObject[type_name] = value || '';
+    updateTiltMetaProperty(element, properties, newPropertyObject, modeling);
+  };
+
+  const getValue = () => {
+    return properties[type_name] || "";
+  };
+
+  const validate = (value) => {
+    if (!validation_regex.test(value)) {
+      return translate(validation_text);
+    }
+  };
+
+  return TextFieldEntry({
+    element: properties,
+    id,
+    label: type_label,
+    description: type_description,
+    getValue,
+    setValue,
+    debounce,
+    validate
+  });
+}
+
 
 export function TiltMetaNameField(props) {
     const {
@@ -104,7 +148,7 @@ export function TiltMetaNameField(props) {
     // return error if contains spaces
     const validate = (value) => {
       if (!/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/.test(value)) {
-        return translate('This field must have an ISO');
+        return translate('This field must have an ISO Timestamp');
       }
     };
   
