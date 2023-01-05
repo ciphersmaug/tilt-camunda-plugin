@@ -2,51 +2,31 @@ import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 
 export function findExtensions(element, types) {
-  const extensionElements = getExtensionElements(element);
+  const extensionElements = getBusinessObject(element).get('extensionElements');
 
   if (!extensionElements) {
     return [];
   }
-
-  return extensionElements.get('values').filter((value) => {
-    return isAny(value, [].concat(types));
-  });
+  if (types){
+    var properties = extensionElements.get('values').filter((value) => {
+      return isAny(value, [].concat(types));
+    });
+    if (properties.length) {
+      return properties;
+    } else {
+      return [];
+    }
+  }else{
+    return extensionElements.get('values')
+  }
 }
 
-export function getExtensionElements(element) {
-  const businessObject = getBusinessObject(element);
-
-  return businessObject.get('extensionElements');
-}
 export function getXMLTiltMetaProperties(element){
   const bo = getBusinessObject(element);
   const properties = findExtensions(bo,'tilt:Meta');
   if (properties.length) {
     return properties[0];
   }
-  return null;
-}
-
-export function getCamundaProperties(element) {
-  const bo = getBusinessObject(element);
-
-  const properties = findExtensions(bo, 'camunda:Properties') || [];
-
-  if (properties.length) {
-    return properties[0];
-  }
-
-  return null;
-}
-export function getTiltProperties(element) {
-  const bo = getBusinessObject(element);
-
-  const properties = findExtensions(bo, 'tilt:Properties') || [];
-
-  if (properties.length) {
-    return properties[0];
-  }
-
   return null;
 }
 

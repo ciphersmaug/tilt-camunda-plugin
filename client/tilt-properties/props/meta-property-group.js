@@ -1,10 +1,10 @@
 import { removeFactory } from "./tilt-property-groups";
 import { createTextField } from "./tilt-property-groups";
 
-export function createMetaPropertyGroup(properties,element,injector){
+export function createMetaPropertyGroup(properties,element,injector,index=1){
 return {
-    id: "tilt-meta-list",
-    label: "Meta information",
+    id: `${element.id}-meta-information-${index}`,
+    label: `Meta information ${index}`,
     entries: [
       {
         id: "meta-name",

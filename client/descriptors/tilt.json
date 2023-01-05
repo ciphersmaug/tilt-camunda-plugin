@@ -46,6 +46,32 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "Controller",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "division",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "country",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "emumerations": [],

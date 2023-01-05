@@ -1,5 +1,3 @@
-
-
 MIT License
 
 Copyright (c) 2023 https://github.com/ciphersmaug

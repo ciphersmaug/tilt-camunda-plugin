@@ -4,7 +4,8 @@ import {
 } from 'bpmn-js/lib/util/ModelUtil';
 
 import {
-  createTiltMetaGroup
+  createTiltMetaGroup,
+  createTiltPropertiesGroup
 } from './props/tilt-property-groups';
 
 
@@ -28,8 +29,11 @@ export default class TiltPropertiesExtensionProvider {
       if(is(element, 'bpmn:Process')) {
         groups.push(createTiltMetaGroup(element,this._injector));
       }
+      //if(is(element, 'bpmn:StartEvent')) {
+      //  groups.push(createTiltMetaGroup(element,this._injector));
+      //}
       if(is(element, 'bpmn:StartEvent')) {
-        groups.push(createTiltMetaGroup(element,this._injector));
+        groups.push(createTiltPropertiesGroup(element,this._injector));
       }
       return groups;
     }
