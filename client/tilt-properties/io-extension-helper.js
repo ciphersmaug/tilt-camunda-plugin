@@ -32,3 +32,18 @@ export function createExtensionElements(element, bpmnFactory) {
   const bo = getBusinessObject(element);
   return createElement('bpmn:ExtensionElements', { values: []}, bo, bpmnFactory);
 }
+
+export function removeDollarProperties(options){
+  const pick = (obj, keys) => Object.keys(obj).filter(k => keys.includes(k)).reduce((res, k) => Object.assign(res, {[k]: obj[k]}), {});
+  return pick(options,Object.keys(options).filter(item => !item.includes("$")))
+}
+
+export function updateTiltProperty(element, property, newProps, modeling) {
+  const currentProps = property;
+  var props = {}
+  props = removeDollarProperties({
+    ...currentProps,
+    ...newProps
+  });
+  return modeling.updateModdleProperties(element, property, props);
+}

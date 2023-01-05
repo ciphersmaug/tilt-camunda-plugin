@@ -15,6 +15,7 @@ jobs:
       - run: |
           npm install
           npm run all
+          sed -i "s/TILT Extension (Development Build)/TILT Extension ${{ github.ref_name }}/" ./index.js
           zip tilt-release.zip -r ./dist ./client ./index.js ./README.md ./LICENSE.md
 
       - name: Create Release

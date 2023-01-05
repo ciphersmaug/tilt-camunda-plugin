@@ -5,9 +5,10 @@ import { TextFieldEntry } from '@bpmn-io/properties-panel';
 import { 
   findExtensions,
   createExtensionElements,
-  createElement
-} from '../extensions-helper';
-import { updateTiltProperty } from '../tilt-io-helper';
+  createElement,
+  removeDollarProperties,
+  updateTiltProperty
+} from '../io-extension-helper';
 
 import { createMetaPropertyGroup } from './meta-property-group';
 import { createControllerPropertyGroup } from './controller-property-group';
@@ -48,7 +49,6 @@ function addFactory(tilt_type, element, injector){
 }
 
 export function removeFactory(element, property, modeling) {
-
   return function(event) {
     event.stopPropagation();
     const extensionElements = getBusinessObject(element).get('extensionElements');
@@ -56,6 +56,13 @@ export function removeFactory(element, property, modeling) {
     modeling.updateModdleProperties(element, extensionElements, {
       values: extensionElements.get('values').filter(value => value !== property)
     });
+    
+    if (extensionElements.values.length == 0){
+      var updated_bo = getBusinessObject(element)
+      delete updated_bo.extensionElements;
+      updated_bo = removeDollarProperties(updated_bo)
+      modeling.updateModdleProperties(element,getBusinessObject(element),updated_bo)
+    }
   };
 }
 
@@ -77,7 +84,7 @@ export function createTiltPropertiesGroup(element,injector,extension_type="tilt:
   };
 
   const tiltGroup = {
-    id: "tilt-specification-group",
+    id: `tilt-specification-group-${element.id}`,
     label: "TILT elements",
     add:addButton,
     component: ListGroup,
@@ -98,8 +105,6 @@ export function createTextField(props){
     validation_text
   } = props;
 
-  var tilt_type = id.split("-")[0];
-
   const modeling = useService('modeling');
   const translate = useService('translate');
   const debounce = useService('debounceInput');
@@ -107,7 +112,7 @@ export function createTextField(props){
   const setValue = (value) => {
     var newPropertyObject = {};
     newPropertyObject[type_name] = value || '';
-    updateTiltProperty(element, properties, newPropertyObject, modeling, tilt_type);
+    updateTiltProperty(element, properties, newPropertyObject, modeling);
   };
 
   const getValue = () => {
