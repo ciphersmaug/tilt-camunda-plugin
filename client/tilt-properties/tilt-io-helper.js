@@ -21,10 +21,6 @@ export function composeTiltControllerPropertyProps(options){
   return {name,division,address,country};
 }
 
-/**
- * Craft the UPDATE command to set a property value.
- */
-
 export function updateTiltProperty(element, property, newProps, modeling, tilt_type) {
   const currentProps = property;
   var props = {}
@@ -48,7 +44,3 @@ export function updateTiltProperty(element, property, newProps, modeling, tilt_t
 
   return modeling.updateModdleProperties(element, property, props);
 }
-
-//export function createMetaProperty(factory, options) {
-//  return factory.create('tilt:Meta', composeTiltMetaPropertyProps(options));
-//}

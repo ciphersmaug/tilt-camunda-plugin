@@ -1,20 +1,16 @@
-import { is } from 'bpmn-js/lib/util/ModelUtil';
 import { ListGroup} from '@bpmn-io/properties-panel';
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 import { useService } from 'bpmn-js-properties-panel';
 import { TextFieldEntry } from '@bpmn-io/properties-panel';
 import { 
-  getXMLTiltMetaProperties,
   findExtensions,
   createExtensionElements,
-  createTiltMetaProperty
+  createElement
 } from '../extensions-helper';
+import { updateTiltProperty } from '../tilt-io-helper';
+
 import { createMetaPropertyGroup } from './meta-property-group';
 import { createControllerPropertyGroup } from './controller-property-group';
-import {
-  updateTiltProperty
-} from '../tilt-io-helper';
-import { createElement } from '../extensions-helper';
 
 function addFactory(tilt_type, element, injector){
   const bpmnFactory = injector.get('bpmnFactory'),
@@ -27,8 +23,6 @@ function addFactory(tilt_type, element, injector){
 
     const extensionElements = getBusinessObject(element).get('extensionElements'),
           tiltProperties = findExtensions(businessObject, tilt_type);
-    
-    debugger;
 
     let updatedBusinessObject, update;
 
@@ -53,48 +47,10 @@ function addFactory(tilt_type, element, injector){
   return add;
 }
 
-function addMetaFactory(element, injector) {
-  const bpmnFactory = injector.get('bpmnFactory'),
-        modeling = injector.get('modeling');
-
-  function add(event) {
-    event.stopPropagation();
-
-    const businessObject = getBusinessObject(element);
-
-    const extensionElements = getBusinessObject(element).get('extensionElements'),
-          tiltMetaProperties = getXMLTiltMetaProperties(businessObject);
-
-    let updatedBusinessObject, update;
-
-    if (!extensionElements) {
-      updatedBusinessObject = businessObject;
-
-      const extensionElements = createExtensionElements(businessObject, bpmnFactory),
-            tiltMetaProperties = createElement("tilt:Meta",{},extensionElements, bpmnFactory);
-      extensionElements.values.push(tiltMetaProperties);
-
-      update = { extensionElements };
-    } else if (!tiltMetaProperties) {
-      updatedBusinessObject = extensionElements;
-
-      const tiltMetaProperties = createTiltMetaProperty(extensionElements, bpmnFactory, {});
-
-      update = { values: extensionElements.get('values').concat(tiltMetaProperties) };
-    }
-    modeling.updateModdleProperties(element, updatedBusinessObject, update);
-  }
-
-  return add;
-}
-
 export function removeFactory(element, property, modeling) {
 
   return function(event) {
     event.stopPropagation();
-    //console.log(property)
-    //debugger;
-    //const businessObject = getBusinessObject(element);
     const extensionElements = getBusinessObject(element).get('extensionElements');
 
     modeling.updateModdleProperties(element, extensionElements, {
@@ -126,49 +82,6 @@ export function createTiltPropertiesGroup(element,injector,extension_type="tilt:
     add:addButton,
     component: ListGroup,
     items: items_list
-  }
-  return tiltGroup
-}
-
-export function createTiltMetaGroup(element, injector){
-  const processBo = getProcessBo(element);
-  const properties = getTiltMetaProperties(processBo);
-  var addButton = null;
-  if(properties.length==0){
-    addButton = addMetaFactory(element, injector)
-  };
-
-  const tiltGroup = {
-    id: "tilt-specification-group",
-    label: "TILT elements",
-    add:addButton,
-    component: ListGroup,
-    items: [
-      createMetaPropertyGroup(properties,element,injector)
-    ]
-  }
-  return tiltGroup
-}
-
-export function createTiltControllerGroup(element, injector){
-  const processBo = getProcessBo(element);
-  const properties = findExtensions(processBo,"tilt:Controller");
-  debugger;
-  
-  
-  var addButton = null;
-  if(properties.length==0){
-    addButton = addFactory("tilt:Controller",element, injector)
-  };
-
-  const tiltGroup = {
-    id: "tilt-specification-group",
-    label: "TILT elements",
-    add:addButton,
-    component: ListGroup,
-    items: [
-      createControllerPropertyGroup(properties,element,injector)
-    ]
   }
   return tiltGroup
 }
@@ -224,21 +137,14 @@ export function createTextField(props){
 
 /**
  * Get process business object from process element or participant.
- */
-function getProcessBo(element) {
-  const bo = getBusinessObject(element);
-
+ *
+//function getProcessBo(element) {
+//  const bo = getBusinessObject(element);
+//
   if (is(element, 'bpmn:Participant')) {
     bo = bo.processRef;
   }
 
   return bo;
 }
-
-function getTiltMetaProperties(processBo){
-  const tiltMetaProperties = getXMLTiltMetaProperties(processBo);
-  if (!tiltMetaProperties) {
-    return [];
-  }
-  return tiltMetaProperties;
-}
+*/

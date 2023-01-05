@@ -21,26 +21,14 @@ export function findExtensions(element, types) {
   }
 }
 
-export function getXMLTiltMetaProperties(element){
-  const bo = getBusinessObject(element);
-  const properties = findExtensions(bo,'tilt:Meta');
-  if (properties.length) {
-    return properties[0];
-  }
-  return null;
-}
-
-export function createExtensionElements(element, bpmnFactory) {
-  const bo = getBusinessObject(element);
-  return createElement('bpmn:ExtensionElements', { values: []}, bo, bpmnFactory);
-}
-export function createTiltMetaProperty(extensionElements, bpmnFactory, properties) {
-  return createElement('tilt:Meta', properties, extensionElements, bpmnFactory);
-}
-
 export function createElement(elementType, properties, parent, factory) {
   const element = factory.create(elementType, properties);
   element.$parent = parent;
 
   return element;
+}
+
+export function createExtensionElements(element, bpmnFactory) {
+  const bo = getBusinessObject(element);
+  return createElement('bpmn:ExtensionElements', { values: []}, bo, bpmnFactory);
 }

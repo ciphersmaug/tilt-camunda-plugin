@@ -4,7 +4,7 @@ This plug-in for the Camunda Modeler provides a TILT elements properties panel e
 
 ![alt image](./images/properties_panel_extension.png)
 
-The information will automatically appended to the xml representation of the model in the following format:
+The information will automatically append to the xml representation of the model in the following format:
 
 ```xml
 <bpmn:extensionElements>
