@@ -1,0 +1,15 @@
+{
+  "name": "bpmnlint-plugin-custom",
+  "version": "0.0.0",
+  "private": true,
+  "description": "bpmnlint custom tilt rules",
+  "main": "index.js",
+  "author": {
+    "name": "ciphersmaug",
+    "url": "https://github.com/ciphersmaug"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bpmnlint-utils": "^1.0.2"
+  }
+}

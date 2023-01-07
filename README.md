@@ -90,7 +90,7 @@ This TILT extension for the Camunda BPMN modeler currently supports Camunda Plat
 1. Create a `main` - branch commit and tag it in the following schema: `v*.*.*`.
 
     ```
-    git tag -a v0.0.1
+    git tag v0.0.1
     ```
 2. Push the branch to origin using the following command: 
     ```

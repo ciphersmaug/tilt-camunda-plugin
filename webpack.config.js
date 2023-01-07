@@ -9,6 +9,14 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'client.js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.bpmnlintrc$/i,
+        use: 'bpmnlint-loader',
+      }
+    ]
+  },
   devtool: 'cheap-module-source-map',
   plugins: [
     new CamundaModelerWebpackPlugin()
