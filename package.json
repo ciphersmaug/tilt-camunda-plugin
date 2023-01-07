@@ -7,7 +7,7 @@
     "all": "run-s bundle",
     "bundle": "webpack",
     "bundle:watch": "webpack --watch",
-    "dev": "webpack -w"
+    "dev": "webpack && ~/Projects/camunda-modeler-5.6.0-linux-x64/camunda-modeler"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "plugin",
     "tilt"
   ],
-  "author": "Jannis Kiesel",
+  "author": "ciphersmaug",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.9",

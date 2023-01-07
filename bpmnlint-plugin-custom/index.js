@@ -2,7 +2,7 @@ module.exports = {
     configs: {
       recommended: {
         rules: {
-          'no-manual-task': 'error'
+          'process-must-contain-tilt-meta': 'error'
         }
       }
     }

@@ -3,7 +3,6 @@
     "plugin:custom/recommended"
   ],
   "rules": {
-    "label-required": "warn",
-    "custom/no-manual-task": "error"
+    "custom/process-must-contain-tilt-meta": "warn"
   }
 }
