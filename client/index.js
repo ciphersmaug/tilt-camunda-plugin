@@ -1,10 +1,13 @@
 import {
-  registerPlatformBpmnJSPlugin, registerBpmnJSModdleExtension, registerClientPlugin
+  registerPlatformBpmnJSPlugin, registerBpmnJSModdleExtension, registerClientPlugin, registerBpmnJSPlugin
 } from 'camunda-modeler-plugin-helpers';
 import { config, resolver } from '../.bpmnlintrc';
 
 import tiltPropertiesExtensionModule from './tilt-properties';
 import tiltModdleDescriptor from "./descriptors/tilt";
+
+var tiltExtractor = require('./tilt-extractor/tilt-extractor');
+
 registerPlatformBpmnJSPlugin(tiltPropertiesExtensionModule);
 registerBpmnJSModdleExtension(tiltModdleDescriptor);
 
@@ -13,3 +16,5 @@ registerBpmnJSModdleExtension(tiltModdleDescriptor);
 // provide { config, resolver } as a `lintRules.${tabType}` plug-in
 registerClientPlugin({ config, resolver }, 'lintRules.cloud-bpmn');
 registerClientPlugin({ config, resolver }, 'lintRules.bpmn');
+
+registerBpmnJSPlugin(tiltExtractor);

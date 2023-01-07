@@ -3,6 +3,6 @@
     "plugin:custom/recommended"
   ],
   "rules": {
-    "custom/process-must-contain-tilt-meta": "warn"
+    "custom/process-must-contain-tilt-meta": "error"
   }
 }
