@@ -1,5 +1,5 @@
 import {
-  registerPlatformBpmnJSPlugin, registerBpmnJSModdleExtension, registerClientPlugin, registerBpmnJSPlugin
+  registerPlatformBpmnJSPlugin, registerBpmnJSModdleExtension, registerClientPlugin, registerBpmnJSPlugin//, registerClientExtension
 } from 'camunda-modeler-plugin-helpers';
 import { config, resolver } from '../.bpmnlintrc';
 

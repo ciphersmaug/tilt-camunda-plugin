@@ -10,10 +10,9 @@ import {
 
 
 /**
- * An extension that makes process IO mappings configurable via a new
+ * An extension that makes  tilt properties configurable via a new
  * properties tab.
  *
- * @param {didi.Injector} injector
  */
 export default class TiltPropertiesExtensionProvider {
   constructor(propertiesPanel, injector) {
