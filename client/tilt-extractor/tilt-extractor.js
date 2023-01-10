@@ -1,12 +1,17 @@
 const { getBusinessObject } = require('bpmn-js/lib/util/ModelUtil');
+// const {fs} = require("fs")
 //const { dialog } = require('electron')
 function TiltExtractor(eventBus, bpmnRules, editorActions, canvas, commandStack, elementRegistry, modeling, config) {
   //this.commandStack = commandStack;
+  this.config = config;
+  this.editorActions = editorActions;
+  this.modeling = modeling;
   debugger;
   var self = this;
   
   editorActions.register({
     extractTiltFromBpmn: function() {
+      debugger;
       let bo = getBusinessObject(canvas.getRootElement())
       console.log(canvas)
       self.extract();
@@ -15,8 +20,10 @@ function TiltExtractor(eventBus, bpmnRules, editorActions, canvas, commandStack,
   });
 }
 
-TiltExtractor.prototype.extract = async function() {
+TiltExtractor.prototype.extract = function() {
   console.log("Im extracting TILT");
+  debugger;
+
   //var savepath = await window.showSaveFilePicker()
   //dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
 };
