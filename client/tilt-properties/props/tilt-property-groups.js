@@ -39,7 +39,16 @@ export function addFactory(tilt_type, element, injector, parentElement = null){
       console.log(`Added ${newElement.$type} to ${element.id}`)
       return;
     }else{
+      // We can go down one extensionElementsLevel:
+
+      //var parentExtension = findExtensions(element, parentElement.$type);
+      //if (parentExtension.length){
+      //  // Attach to the first of the different parents. This might be an issue later on.
+      //  parentExtension = parentExtension[0];
+      //}
+      //debugger;
       newElement = createElement(tilt_type,{values:[]},parentElement, bpmnFactory);
+      //newElement.$parent = parentExtension;
       modeling.updateModdleProperties(element,parentElement, { values: parentElement.get("values").concat(newElement) });
       return;
     }

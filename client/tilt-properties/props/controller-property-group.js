@@ -59,7 +59,7 @@ return {
         type_description: "All country codes follow the established ones ISO 3166 country abbreviation standard.",
         validation_regex: /^[A-Z][A-Z]$/,
         validation_text: "All country codes follow the established ones ISO 3166 country abbreviation standard."
-      }
+      },
       //{
       //  id: "controller-representative",
       //  component: createListGroup,
@@ -71,12 +71,12 @@ return {
       //  validation_regex: /^[A-Z][A-Z]$/,
       //  validation_text: "All country codes follow the established ones ISO 3166 country abbreviation standard."
       //},
-      //{
-      //  id: `controller-representative`,
-      //  label: "Controllers representative",
-      //  component: ListGroup,
-      //  items: [createRepresentativePropertyGroup(properties.representative,element,injector)]
-      //}
+      {
+        id: `controller-representative`,
+        label: "Controllers representative",
+        component: ListGroup,
+        items: [createRepresentativePropertyGroup(properties.values[0],element,injector)]
+      }
     ],
     remove: removeFactory(element, properties, injector.get('modeling'))
   }
