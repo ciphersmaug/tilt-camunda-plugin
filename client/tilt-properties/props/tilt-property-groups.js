@@ -13,7 +13,7 @@ import {
 import { createMetaPropertyGroup } from './meta-property-group';
 import { createControllerPropertyGroup } from './controller-property-group';
 
-export function addFactory(tilt_type, element, injector, parentElement = null){
+export function addFactory(element, injector, tilt_type, initializationProperties = {}, parentElement = null){
   const bpmnFactory = injector.get('bpmnFactory'),
         modeling = injector.get('modeling');
   
@@ -27,52 +27,23 @@ export function addFactory(tilt_type, element, injector, parentElement = null){
     let newElement;
     if (!extensionElements && !parentElement) {
       // Ensure that the ExtensionElements Property exists if it is not attached to a parent
-      extensionElements =  createElement('bpmn:ExtensionElements', { values: []}, businessObject, bpmnFactory);
+      extensionElements =  createElement('bpmn:ExtensionElements', {values : []}, businessObject, bpmnFactory);
       modeling.updateModdleProperties(element,businessObject,{ extensionElements });
-      console.log(`Added extension elements to ${element.id}`)
+      console.log(`TILT: Added ${extensionElements.$type} to ${element.id}`);
       return add(event);
     }else if(extensionElements && !parentElement){
       // Append a new Element to the extensionElement
-      newElement = createElement(tilt_type,{values : []},businessObject, bpmnFactory);
+      newElement = createElement(tilt_type,initializationProperties,businessObject, bpmnFactory);
       extensionElements.values.push(newElement);
       modeling.updateModdleProperties(element,businessObject,{ extensionElements });
-      console.log(`Added ${newElement.$type} to ${element.id}`)
-      return;
+      console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }else{
-      // We can go down one extensionElementsLevel:
-
-      //var parentExtension = findExtensions(element, parentElement.$type);
-      //if (parentExtension.length){
-      //  // Attach to the first of the different parents. This might be an issue later on.
-      //  parentExtension = parentExtension[0];
-      //}
-      //debugger;
-      newElement = createElement(tilt_type,{values:[]},parentElement, bpmnFactory);
-      //newElement.$parent = parentExtension;
-      modeling.updateModdleProperties(element,parentElement, { values: parentElement.get("values").concat(newElement) });
-      return;
+      var propertyNameToAdd = tilt_type.split(":")[1].toLowerCase()
+      newElement = createElement(tilt_type,initializationProperties,parentElement, bpmnFactory);
+      let update = { [propertyNameToAdd]: parentElement.get(propertyNameToAdd).concat(newElement) }
+      modeling.updateModdleProperties(element,parentElement, update);
+      console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }
-
-
-
-    return;
-
-    if(parentProperty == businessObject){
-      extensionElements.values.push(newElement);
-      update = { extensionElements };
-    }else if(!parentProperty.hasOwnProperty(newPropertyName)){
-      update = { representative: [newElement] };
-    }else {
-      update = { representative: parentProperty.get(newPropertyName).concat(newElement) };
-    }
-    if(parentProperty == null){
-      parentProperty = businessObject;
-    }
-    var newPropertyName = tilt_type.split(":")[1].toLowerCase();
-    let update;
-
-    modeling.updateModdleProperties(element, parentProperty, update);
-    debugger;
   }
 
   return add;
@@ -96,7 +67,7 @@ export function removeFactory(element, property, modeling) {
   };
 }
 
-export function createTiltPropertiesGroup(element,injector,extension_type="tilt:Meta"){
+export function createTiltPropertiesGroup(element, injector, extension_type="tilt:Meta", initializationProperties = {}){
   const extensions = findExtensions(element,null);
   var items_list = []
   let meta_fields = 0, controller_fields = 0
@@ -107,40 +78,15 @@ export function createTiltPropertiesGroup(element,injector,extension_type="tilt:
         items_list.push(createControllerPropertyGroup(extensions[i],element,injector,++controller_fields));
       }
     }
-  // Add Button for the tilt property Group 
-  var addButton = null;
-  if(extensions.length<=2){
-    addButton = addFactory(extension_type, element, injector)
-  };
 
   const tiltGroup = {
     id: `tilt-specification-group-${element.id}`,
     label: "TILT elements",
-    add:addButton,
+    add:addFactory(element, injector, extension_type, initializationProperties),
     component: ListGroup,
     items: items_list
   }
   return tiltGroup
-}
-export function createListGroup(props){
-  const {
-    id,
-    element,
-    properties,
-    type_name,
-    type_label,
-    type_description,
-    validation_regex,
-    validation_text
-  } = props;
-  const subGroup = {
-    id: `subGroup-${element.id}`,
-    label: "Representative",
-    add:null,
-    component: ListGroup,
-    items: []
-  }
-  return subGroup
 }
 
 export function createTextField(props){
@@ -186,20 +132,3 @@ export function createTextField(props){
     validate
   });
 }
-
-
-// helper
-
-/**
- * Get process business object from process element or participant.
- *
-//function getProcessBo(element) {
-//  const bo = getBusinessObject(element);
-//
-  if (is(element, 'bpmn:Participant')) {
-    bo = bo.processRef;
-  }
-
-  return bo;
-}
-*/

@@ -10,13 +10,13 @@ const {
 module.exports = function() {
     function check(node, reporter) {
         let check_passed  = false;
-        let tilt_type = "tilt:Meta";
-        let propertiesToTest = ["name", "created", "modified","version","language","status","url"];
-        if (is(node, 'bpmn:Process')) {
+        let tilt_type = "tilt:Controller";
+        let propertiesToTest = ["name"];
+        if (is(node, 'bpmn:StartEvent')) {
             check_passed = test_if_properties_exists(node,tilt_type,propertiesToTest)
             if(!check_passed){
               debugger;
-                reporter.report(node.id, "The business process needs to contain all required TILT meta fields.");
+                reporter.report(node.id, "Must Contain all this and that...");
             }
         }
     }

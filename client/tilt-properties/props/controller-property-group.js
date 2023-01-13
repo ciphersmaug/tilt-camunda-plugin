@@ -1,14 +1,13 @@
 import { removeFactory} from "./tilt-property-groups";
 const addFactory = require("./tilt-property-groups").addFactory;
-import { createTextField, createListGroup} from "./tilt-property-groups";
+import { createTextField } from "./tilt-property-groups";
 import { createRepresentativePropertyGroup } from "./representative-property-group";
-import { ListGroup } from "@bpmn-io/properties-panel";
-import { add } from "diagram-js/lib/util/Collections";
+import { Group } from "@bpmn-io/properties-panel";
 
 export function createControllerPropertyGroup(properties, element, injector, index=1){
-    if(properties.hasOwnProperty("values")){
-      if (properties.values.length == 0){
-        addFactory("tilt:Representative", element, injector, properties).call();
+    if(properties.hasOwnProperty("representative")){
+      if (properties.representative.length == 0){
+        addFactory(element, injector,"tilt:Representative", {}, properties).call();
       }
     }
 
@@ -60,22 +59,11 @@ return {
         validation_regex: /^[A-Z][A-Z]$/,
         validation_text: "All country codes follow the established ones ISO 3166 country abbreviation standard."
       },
-      //{
-      //  id: "controller-representative",
-      //  component: createListGroup,
-      //  properties: properties,
-      //  element: element,
-      //  type_name: "representative",
-      //  type_label: "Representative",
-      //  type_description: "The representative is a responsible real person that represents the controller.",
-      //  validation_regex: /^[A-Z][A-Z]$/,
-      //  validation_text: "All country codes follow the established ones ISO 3166 country abbreviation standard."
-      //},
       {
         id: `controller-representative`,
         label: "Controllers representative",
-        component: ListGroup,
-        items: [createRepresentativePropertyGroup(properties.values[0],element,injector)]
+        component: Group,
+        entries: createRepresentativePropertyGroup(properties.representative[0],element,injector)
       }
     ],
     remove: removeFactory(element, properties, injector.get('modeling'))
