@@ -25,13 +25,13 @@ export default class TiltPropertiesExtensionProvider {
 
       groups = groups.slice();
       if(is(element, 'bpmn:Process')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector));
+        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Controller"));
       }
       //if(is(element, 'bpmn:StartEvent')) {
       //  groups.push(createTiltMetaGroup(element,this._injector));
       //}
       if(is(element, 'bpmn:StartEvent')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector));
+        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Controller"));
       }
       return groups;
     }

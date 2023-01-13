@@ -44,6 +44,11 @@
           "name": "url",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "values",
+          "isMany": true,
+          "type": "Element"
         }
       ]
     },
@@ -70,6 +75,73 @@
           "name": "country",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "values",
+          "isMany": true,
+          "type": "Representative"
+        }
+      ]
+    },
+    {
+      "name": "Representative",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "phone",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "values",
+          "isMany": true,
+          "type": "Element"
+        }
+      ]
+    },
+    {
+      "name": "DPO",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "country",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "phone",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "values",
+          "isMany": true,
+          "type": "Element"
         }
       ]
     }

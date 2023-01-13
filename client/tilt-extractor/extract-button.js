@@ -4,13 +4,40 @@ import { Fill } from 'camunda-modeler-plugin-helpers/components';
 import classNames from 'classnames';
 
 export default class ExtractButton extends PureComponent {
-  constructor(props) {
-    super(props);
+  constructor(eventBus, editorActions, canvas, elementRegistry,config) {
+    super();
+    this.eventBus = eventBus;
+    this.editorActions = editorActions;
+    this.canvas = canvas;
+    this.elementRegistry = elementRegistry;
+    this.config = config;
     this._buttonRef = React.createRef();
   }
 
-  saveFile(){
-    window.showSaveFilePicker()
+  async saveFile2(){
+    navigator.clipboard.writeText("HELLO WORLD");
+    alert("This is currently not available as it needs to be implemented.")
+    return;
+  }
+  async saveFile(){
+    try {
+      // Show the file save dialog.
+      const handle = await window.showSaveFilePicker();
+      // Write to the file.
+      const writable = await handle.createWritable();
+      debugger;
+      await writable.write("Hello World");
+      await writable.close();
+      return;
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error(err.name, err.message);
+        return;
+      }
+    }
+  }
+  createElement(){
+
   }
 
   /**
@@ -24,8 +51,8 @@ export default class ExtractButton extends PureComponent {
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
-          onClick={ () =>  this.saveFile()}>
-          TILT
+          onClick={ () =>  this.createElement()}>
+          Click to save TILT document as ...
         </button>
       </Fill>
     </Fragment>;

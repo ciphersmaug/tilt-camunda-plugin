@@ -13,36 +13,57 @@ import {
 import { createMetaPropertyGroup } from './meta-property-group';
 import { createControllerPropertyGroup } from './controller-property-group';
 
-function addFactory(tilt_type, element, injector){
+export function addFactory(tilt_type, element, injector, parentElement = null){
   const bpmnFactory = injector.get('bpmnFactory'),
         modeling = injector.get('modeling');
-
-  function add(event) {
-    event.stopPropagation();
-
-    const businessObject = getBusinessObject(element);
-
-    const extensionElements = getBusinessObject(element).get('extensionElements'),
-          tiltProperties = findExtensions(businessObject, tilt_type);
-
-    let updatedBusinessObject, update;
-
-    if (!extensionElements) {
-      updatedBusinessObject = businessObject;
-
-      const extensionElements = createExtensionElements(businessObject, bpmnFactory),
-            tiltProperties = createElement(tilt_type,{},extensionElements, bpmnFactory);
-      extensionElements.values.push(tiltProperties);
-
-      update = { extensionElements };
-    } else if (tiltProperties.length == 0) {
-      updatedBusinessObject = extensionElements;
-
-      const tiltProperties = createElement(tilt_type,{},extensionElements, bpmnFactory);
-
-      update = { values: extensionElements.get('values').concat(tiltProperties) };
+  
+  function add(event = null) {
+    if(event != null){
+      event.stopPropagation();
     }
-    modeling.updateModdleProperties(element, updatedBusinessObject, update);
+    
+    var businessObject = getBusinessObject(element);
+    var extensionElements = businessObject.get('extensionElements');
+    let newElement;
+    if (!extensionElements && !parentElement) {
+      // Ensure that the ExtensionElements Property exists if it is not attached to a parent
+      extensionElements =  createElement('bpmn:ExtensionElements', { values: []}, businessObject, bpmnFactory);
+      modeling.updateModdleProperties(element,businessObject,{ extensionElements });
+      console.log(`Added extension elements to ${element.id}`)
+      return add(event);
+    }else if(extensionElements && !parentElement){
+      // Append a new Element to the extensionElement
+      newElement = createElement(tilt_type,{values : []},businessObject, bpmnFactory);
+      extensionElements.values.push(newElement);
+      modeling.updateModdleProperties(element,businessObject,{ extensionElements });
+      console.log(`Added ${newElement.$type} to ${element.id}`)
+      return;
+    }else{
+      newElement = createElement(tilt_type,{values:[]},parentElement, bpmnFactory);
+      modeling.updateModdleProperties(element,parentElement, { values: parentElement.get("values").concat(newElement) });
+      return;
+    }
+
+
+
+    return;
+
+    if(parentProperty == businessObject){
+      extensionElements.values.push(newElement);
+      update = { extensionElements };
+    }else if(!parentProperty.hasOwnProperty(newPropertyName)){
+      update = { representative: [newElement] };
+    }else {
+      update = { representative: parentProperty.get(newPropertyName).concat(newElement) };
+    }
+    if(parentProperty == null){
+      parentProperty = businessObject;
+    }
+    var newPropertyName = tilt_type.split(":")[1].toLowerCase();
+    let update;
+
+    modeling.updateModdleProperties(element, parentProperty, update);
+    debugger;
   }
 
   return add;
@@ -79,7 +100,7 @@ export function createTiltPropertiesGroup(element,injector,extension_type="tilt:
     }
   // Add Button for the tilt property Group 
   var addButton = null;
-  if(extensions.length==0){
+  if(extensions.length<=2){
     addButton = addFactory(extension_type, element, injector)
   };
 
@@ -91,6 +112,26 @@ export function createTiltPropertiesGroup(element,injector,extension_type="tilt:
     items: items_list
   }
   return tiltGroup
+}
+export function createListGroup(props){
+  const {
+    id,
+    element,
+    properties,
+    type_name,
+    type_label,
+    type_description,
+    validation_regex,
+    validation_text
+  } = props;
+  const subGroup = {
+    id: `subGroup-${element.id}`,
+    label: "Representative",
+    add:null,
+    component: ListGroup,
+    items: []
+  }
+  return subGroup
 }
 
 export function createTextField(props){
