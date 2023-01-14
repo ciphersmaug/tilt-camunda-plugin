@@ -123,7 +123,7 @@ export function createTiltPropertiesGroup(element, injector, blueprint_array = [
   // return nothing if there are no tilt Elements to create and if there is no tilt Element to add:
   if (items_list.length == 0 && blueprint_array.length == 0){
     return null
-  }
+  }createTiltPropertiesGroup
 
   var addButton = null;
   var addArray = []

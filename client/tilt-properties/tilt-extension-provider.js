@@ -1,14 +1,6 @@
-import {
-  is,
-  getBusinessObject
-} from 'bpmn-js/lib/util/ModelUtil';
+import { is } from 'bpmn-js/lib/util/ModelUtil';
 import PropertyBlueprint from './property-blueprint';
-
-import {
-  createTiltPropertiesGroup
-} from './props/tilt-property-groups';
-
-
+import { createTiltPropertiesGroup } from './props/tilt-property-groups';
 
 /**
  * An extension that makes  tilt properties configurable via a new
@@ -23,16 +15,38 @@ export default class TiltPropertiesExtensionProvider {
 
   getGroups(element) {
     return groups => {
-
       groups = groups.slice();
-      if(is(element, 'bpmn:Process') || is(element,'bpmn:Collaboration')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Meta",{},null)],[1]));
-      }else if(is(element, 'bpmn:Participant')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Meta",{},null),new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)],[1,2]));
+
+      if(is(element, 'bpmn:Process')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Meta",{},null),
+          new PropertyBlueprint("tilt:Controller",{representative:[]},null),
+          new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)
+          ],[1,1,1]));
+      
+      }else if(is(element,'bpmn:Collaboration')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Meta",{},null)
+          ],[1]));
+      
+      }else if(is(element, 'bpmn:Participant') || is(element,'bpmn:Lane')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Controller",{representative:[]},null),
+          new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)
+          ],[1,1]));
+      
       }else if(is(element, 'bpmn:StartEvent')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Controller",{representative:[]},null)]));
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Controller",{representative:[]},null)
+          ]));
+      
       }else{
-        var newGroup = createTiltPropertiesGroup(element,this._injector,"",null)
+      
+        var newGroup = createTiltPropertiesGroup(element,this._injector,[],[])
         if (newGroup){
           groups.push(newGroup)
         }
@@ -47,10 +61,3 @@ TiltPropertiesExtensionProvider.$inject = [
   'propertiesPanel',
   'injector'
 ];
-
-
-//function getProcessRef(element) {
-//  const bo = getBusinessObject(element);
-//
-//  return bo.processRef;
-//}
