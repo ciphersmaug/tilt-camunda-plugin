@@ -15,7 +15,6 @@ module.exports = function() {
         if (is(node, 'bpmn:StartEvent')) {
             check_passed = test_if_properties_exists(node,tilt_type,propertiesToTest)
             if(!check_passed){
-              debugger;
                 reporter.report(node.id, "Must Contain all this and that...");
             }
         }

@@ -4,14 +4,15 @@ import { useService } from 'bpmn-js-properties-panel';
 import { TextFieldEntry } from '@bpmn-io/properties-panel';
 import { 
   findExtensions,
-  createExtensionElements,
   createElement,
   removeDollarProperties,
   updateTiltProperty
 } from '../io-extension-helper';
 
-import { createMetaPropertyGroup } from './meta-property-group';
-import { createControllerPropertyGroup } from './controller-property-group';
+import { createMetaPropertyGroup } from './meta';
+import { createControllerPropertyGroup } from './controller';
+import { createRepresentativePropertyGroup } from './representative';4
+import { createDPOPropertyGroup } from './data-protection-officer';
 
 export function addFactory(element, injector, tilt_type, initializationProperties = {}, parentElement = null){
   const bpmnFactory = injector.get('bpmnFactory'),
@@ -70,19 +71,54 @@ export function removeFactory(element, property, modeling) {
 export function createTiltPropertiesGroup(element, injector, extension_type="tilt:Meta", initializationProperties = {}){
   const extensions = findExtensions(element,null);
   var items_list = []
-  let meta_fields = 0, controller_fields = 0
+  var field_counter = {}
+  var args;
+  var property_name_to_add; 
   for (let i = 0; i < extensions.length; i++) {
-      if (extensions[i].$type == "tilt:Meta"){
-        items_list.push(createMetaPropertyGroup(extensions[i], element, injector,++meta_fields ));
-      }else if (extensions[i].$type == "tilt:Controller"){
-        items_list.push(createControllerPropertyGroup(extensions[i],element,injector,++controller_fields));
-      }
+    property_name_to_add = extensions[i].$type.split(":")[1]
+    if(!field_counter.hasOwnProperty(property_name_to_add)){
+      field_counter[property_name_to_add] = 0;
     }
+    args = [extensions[i], element, injector, ++field_counter[property_name_to_add]];
+
+    // This is a bit redundant but somewhere we need to make the function call.
+    // Dynamic function creation is disabled in the electron environment
+    switch (extensions[i].$type) {
+      case 'tilt:Meta':
+        items_list.push(createMetaPropertyGroup(...args));
+        break;
+      case 'tilt:Controller':
+        items_list.push(createControllerPropertyGroup(...args));
+        break;
+      case 'tilt:Representative':
+        items_list.push(createRepresentativePropertyGroup(...args));
+        break;
+      case 'tilt:DPO':
+        items_list.push(createDPOPropertyGroup(...args));
+        break;
+      case 'tilt:DataDisclosed':
+        items_list.push(createDataDisclosedPropertyGroup(...args));
+        break;
+      default:
+        console.log(`Cannot create group ${extensions[i].$type}.`);
+        debugger;
+        break;
+    }  
+  }
+
+  if (items_list.length == 0 && !extension_type){
+    return null
+  }
+
+  var addButton = null;
+  if (extension_type){
+    addButton = addFactory(element, injector, extension_type, initializationProperties)
+  }
 
   const tiltGroup = {
     id: `tilt-specification-group-${element.id}`,
     label: "TILT elements",
-    add:addFactory(element, injector, extension_type, initializationProperties),
+    add: addButton,
     component: ListGroup,
     items: items_list
   }

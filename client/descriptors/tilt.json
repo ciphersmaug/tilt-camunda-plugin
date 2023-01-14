@@ -134,6 +134,48 @@
           "type": "Element"
         }
       ]
+    },
+    {
+      "name": "DataDisclosed",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "category",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "purposes",
+          "isMany": true,
+          "type": "Purpose"
+        },
+        {
+          "name": "legalBases",
+          "isMany": true,
+          "type": "legalBasis"
+        },
+        {
+          "name": "legitimateInterests",
+          "isMany": true,
+          "type": "LegitimateInterest"
+        },
+        {
+          "name": "recipients",
+          "isMany": true,
+          "type": "Recipient"
+        },
+        {
+          "name": "storage",
+          "isMany": true,
+          "type": "Storage"
+        },
+        {
+          "name": "nonDisclosure",
+          "isMany": true,
+          "type": "NonDisclosure"
+        }
+
+      ]
     }
   ],
   "emumerations": [],

@@ -2,7 +2,10 @@ import { removeFactory } from "./tilt-property-groups";
 import { createTextField } from "./tilt-property-groups";
 
 export function createRepresentativePropertyGroup(properties, element, injector, index=1){
-return [
+return {
+    id: `${element.id}-representative-information-${index}`,
+    label: `Representative information ${index}`,
+    entries: [
       {
         id: "representative-name",
         component: createTextField,
@@ -36,5 +39,7 @@ return [
         validation_regex: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
         validation_text: "Must be a valid phone number such as: '+49 151 1234 5678'"
       }
-    ]
+    ],
+    remove: removeFactory(element, properties, injector.get('modeling'))
+  }
 }

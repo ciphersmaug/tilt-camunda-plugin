@@ -1,27 +1,21 @@
 import { removeFactory} from "./tilt-property-groups";
 const addFactory = require("./tilt-property-groups").addFactory;
 import { createTextField } from "./tilt-property-groups";
-import { createRepresentativePropertyGroup } from "./representative-property-group";
+import { createRepresentativePropertyGroup } from "./representative";
 import { Group } from "@bpmn-io/properties-panel";
 
-export function createControllerPropertyGroup(properties, element, injector, index=1){
-    if(properties.hasOwnProperty("representative")){
-      if (properties.representative.length == 0){
-        addFactory(element, injector,"tilt:Representative", {}, properties).call();
-      }
-    }
-
+export function createDataDisclosedPropertyGroup(properties, element, injector, index=1){
 return {
-    id: `${element.id}-controller-information-${index}`,
-    label: `Controller information ${index}`,
+    id: `${element.id}-data-disclosed-information-${index}`,
+    label: `Data disclosed information ${index}`,
     entries: [
       {
-        id: "controller-name",
+        id: "disclosed-category",
         component: createTextField,
         properties: properties,
         element: element,
-        type_name: "name",
-        type_label: "Name",
+        type_name: "category",
+        type_label: "Category",
         type_description: "Name of the Controller.",
         validation_regex: /^(.|\s)*\S(.|\s)*$/,
         validation_text: "This field must have a value."
@@ -63,7 +57,7 @@ return {
         id: `controller-representative`,
         label: "Controllers representative",
         component: Group,
-        entries: createRepresentativePropertyGroup(properties.representative[0],element,injector)
+        entries: createRepresentativePropertyGroup(properties.representative[0],element,injector).entries
       }
     ],
     remove: removeFactory(element, properties, injector.get('modeling'))
