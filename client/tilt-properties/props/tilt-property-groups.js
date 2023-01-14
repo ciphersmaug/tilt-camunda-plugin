@@ -11,38 +11,45 @@ import {
 
 import { createMetaPropertyGroup } from './meta';
 import { createControllerPropertyGroup } from './controller';
-import { createRepresentativePropertyGroup } from './representative';4
+import { createRepresentativePropertyGroup } from './representative';
 import { createDPOPropertyGroup } from './data-protection-officer';
 
-export function addFactory(element, injector, tilt_type, initializationProperties = {}, parentElement = null){
+export function addFactory(element, injector, blueprint_array = []){
   const bpmnFactory = injector.get('bpmnFactory'),
         modeling = injector.get('modeling');
   
-  function add(event = null) {
+  function add(event = null, property_blueprint = null) {
+    debugger;
     if(event != null){
       event.stopPropagation();
+    }
+    if(!property_blueprint){
+      for(let e in blueprint_array){
+        add(event,blueprint_array[e])
+      }
+      return;
     }
     
     var businessObject = getBusinessObject(element);
     var extensionElements = businessObject.get('extensionElements');
     let newElement;
-    if (!extensionElements && !parentElement) {
+    if (!extensionElements && !property_blueprint.parent_element) {
       // Ensure that the ExtensionElements Property exists if it is not attached to a parent
       extensionElements =  createElement('bpmn:ExtensionElements', {values : []}, businessObject, bpmnFactory);
       modeling.updateModdleProperties(element,businessObject,{ extensionElements });
       console.log(`TILT: Added ${extensionElements.$type} to ${element.id}`);
-      return add(event);
-    }else if(extensionElements && !parentElement){
+      return add(event,property_blueprint);
+    }else if(extensionElements && !property_blueprint.parent_element){
       // Append a new Element to the extensionElement
-      newElement = createElement(tilt_type,initializationProperties,businessObject, bpmnFactory);
+      newElement = createElement(property_blueprint.tilt_type,property_blueprint.initialization_properties,businessObject, bpmnFactory);
       extensionElements.values.push(newElement);
       modeling.updateModdleProperties(element,businessObject,{ extensionElements });
       console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }else{
-      var propertyNameToAdd = tilt_type.split(":")[1].toLowerCase()
-      newElement = createElement(tilt_type,initializationProperties,parentElement, bpmnFactory);
-      let update = { [propertyNameToAdd]: parentElement.get(propertyNameToAdd).concat(newElement) }
-      modeling.updateModdleProperties(element,parentElement, update);
+      var propertyNameToAdd = property_blueprint.tilt_type.split(":")[1].toLowerCase()
+      newElement = createElement(property_blueprint.tilt_type,property_blueprint.initialization_properties,property_blueprint.parent_element, bpmnFactory);
+      let update = { [propertyNameToAdd]: property_blueprint.parent_element.get(propertyNameToAdd).concat(newElement) }
+      modeling.updateModdleProperties(element,property_blueprint.parent_element, update);
       console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }
   }
@@ -68,13 +75,13 @@ export function removeFactory(element, property, modeling) {
   };
 }
 
-export function createTiltPropertiesGroup(element, injector, extension_type="", initialization_properties = {},max_extensions_to_create = 1){
+function createExistingPropertyGroupsList(element, injector){
   const extensions = findExtensions(element,null);
-  var items_list = []
-  var field_counter = {}
+  var items_list = [];
+  var field_counter = {};
   var args;
   var property_name_to_add;
-  var extension_property_name = extension_type.split(":")[1];
+
   for (let i = 0; i < extensions.length; i++) {
     property_name_to_add = extensions[i].$type.split(":")[1]
     if(!field_counter.hasOwnProperty(property_name_to_add)){
@@ -106,20 +113,34 @@ export function createTiltPropertiesGroup(element, injector, extension_type="", 
         break;
     }  
   }
+  return [items_list, field_counter];
+}
 
-  if (items_list.length == 0 && extension_type.length == 0){
+export function createTiltPropertiesGroup(element, injector, blueprint_array = [], max_extensions_to_create = [1]){
+  var existing_groups = createExistingPropertyGroupsList(element, injector)
+  var items_list = existing_groups[0], field_counter = existing_groups[1]
+ 
+  // return nothing if there are no tilt Elements to create and if there is no tilt Element to add:
+  if (items_list.length == 0 && blueprint_array.length == 0){
     return null
   }
 
   var addButton = null;
-  if (field_counter.hasOwnProperty(extension_property_name)){
-    if(field_counter[extension_property_name] < max_extensions_to_create){
-      addButton = addFactory(element, injector, extension_type, initialization_properties)
+  var addArray = []
+  for (let i = 0; i < blueprint_array.length; i++) {
+    if (field_counter.hasOwnProperty(blueprint_array[i].property_name)){
+      if(field_counter[blueprint_array[i].property_name] < max_extensions_to_create[i]){
+        addArray.push(blueprint_array[i]);
+      }
+    }else if(blueprint_array.length !=0 ){
+      addArray.push(blueprint_array[i])
+      field_counter[blueprint_array[i].property_name] = 1
     }
-  }else if (extension_type.length != 0){
-    addButton = addFactory(element, injector, extension_type, initialization_properties)
   }
-
+  if (addArray.length != 0){
+    addButton = addFactory(element, injector, addArray);
+  }
+  
   const tiltGroup = {
     id: `tilt-specification-group-${element.id}`,
     label: "TILT elements",

@@ -3,11 +3,13 @@ const addFactory = require("./tilt-property-groups").addFactory;
 import { createTextField } from "./tilt-property-groups";
 import { createRepresentativePropertyGroup } from "./representative";
 import { Group } from "@bpmn-io/properties-panel";
+import PropertyBlueprint from "../property-blueprint";
 
 export function createControllerPropertyGroup(properties, element, injector, index=1){
     if(properties.hasOwnProperty("representative")){
       if (properties.representative.length == 0){
-        addFactory(element, injector,"tilt:Representative", {}, properties).call();
+        debugger;
+        addFactory(element, injector,[new PropertyBlueprint("tilt:Representative", {}, properties)]).call();
       }
     }
 

@@ -2,6 +2,7 @@ import {
   is,
   getBusinessObject
 } from 'bpmn-js/lib/util/ModelUtil';
+import PropertyBlueprint from './property-blueprint';
 
 import {
   createTiltPropertiesGroup
@@ -25,11 +26,11 @@ export default class TiltPropertiesExtensionProvider {
 
       groups = groups.slice();
       if(is(element, 'bpmn:Process') || is(element,'bpmn:Collaboration')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Meta"));
+        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Meta",{},null)],[1]));
+      }else if(is(element, 'bpmn:Participant')) {
+        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Meta",{},null),new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)],[1,2]));
       }else if(is(element, 'bpmn:StartEvent')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Controller",{representative:[]}));
-      }else if(is(element, 'bpmn:Process')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:DataProtectionOfficer",{}));
+        groups.push(createTiltPropertiesGroup(element,this._injector,[new PropertyBlueprint("tilt:Controller",{representative:[]},null)]));
       }else{
         var newGroup = createTiltPropertiesGroup(element,this._injector,"",null)
         if (newGroup){
