@@ -68,12 +68,13 @@ export function removeFactory(element, property, modeling) {
   };
 }
 
-export function createTiltPropertiesGroup(element, injector, extension_type="tilt:Meta", initializationProperties = {}){
+export function createTiltPropertiesGroup(element, injector, extension_type="", initialization_properties = {},max_extensions_to_create = 1){
   const extensions = findExtensions(element,null);
   var items_list = []
   var field_counter = {}
   var args;
-  var property_name_to_add; 
+  var property_name_to_add;
+  var extension_property_name = extension_type.split(":")[1];
   for (let i = 0; i < extensions.length; i++) {
     property_name_to_add = extensions[i].$type.split(":")[1]
     if(!field_counter.hasOwnProperty(property_name_to_add)){
@@ -93,7 +94,7 @@ export function createTiltPropertiesGroup(element, injector, extension_type="til
       case 'tilt:Representative':
         items_list.push(createRepresentativePropertyGroup(...args));
         break;
-      case 'tilt:DPO':
+      case 'tilt:DataProtectionOfficer':
         items_list.push(createDPOPropertyGroup(...args));
         break;
       case 'tilt:DataDisclosed':
@@ -106,13 +107,17 @@ export function createTiltPropertiesGroup(element, injector, extension_type="til
     }  
   }
 
-  if (items_list.length == 0 && !extension_type){
+  if (items_list.length == 0 && extension_type.length == 0){
     return null
   }
 
   var addButton = null;
-  if (extension_type){
-    addButton = addFactory(element, injector, extension_type, initializationProperties)
+  if (field_counter.hasOwnProperty(extension_property_name)){
+    if(field_counter[extension_property_name] < max_extensions_to_create){
+      addButton = addFactory(element, injector, extension_type, initialization_properties)
+    }
+  }else if (extension_type.length != 0){
+    addButton = addFactory(element, injector, extension_type, initialization_properties)
   }
 
   const tiltGroup = {

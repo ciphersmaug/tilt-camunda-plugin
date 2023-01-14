@@ -24,14 +24,14 @@ export default class TiltPropertiesExtensionProvider {
     return groups => {
 
       groups = groups.slice();
-      if(is(element, 'bpmn:Process')) {
+      if(is(element, 'bpmn:Process') || is(element,'bpmn:Collaboration')) {
         groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Meta"));
       }else if(is(element, 'bpmn:StartEvent')) {
         groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:Controller",{representative:[]}));
       }else if(is(element, 'bpmn:Process')) {
-        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:DPO",{}));
+        groups.push(createTiltPropertiesGroup(element,this._injector,"tilt:DataProtectionOfficer",{}));
       }else{
-        var newGroup = createTiltPropertiesGroup(element,this._injector,null,null)
+        var newGroup = createTiltPropertiesGroup(element,this._injector,"",null)
         if (newGroup){
           groups.push(newGroup)
         }

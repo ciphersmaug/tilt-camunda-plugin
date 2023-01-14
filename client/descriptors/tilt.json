@@ -100,7 +100,7 @@
       ]
     },
     {
-      "name": "DPO",
+      "name": "DataProtectionOfficer",
       "superClass": [ "Element" ],
       "properties": [
         {

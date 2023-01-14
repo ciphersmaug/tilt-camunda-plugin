@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tilt="mytilturi.com" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1n8kst7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.6.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <bpmn:collaboration id="Collaboration_1k6x9nv">
+    <bpmn:extensionElements>
+      <tilt:meta name="My Meta Informaton" />
+    </bpmn:extensionElements>
     <bpmn:participant id="Participant_0whnztp" processRef="Process_123" />
     <bpmn:participant id="Participant_1pfiy8g" processRef="Process_0exrbje" />
     <bpmn:messageFlow id="Flow_0ddhymt" sourceRef="Event_1lvbre8" targetRef="Event_0wfbdsl" />
@@ -103,7 +106,7 @@
     </bpmn:intermediateThrowEvent>
     <bpmn:endEvent id="Event_1isqgou">
       <bpmn:extensionElements>
-        <tilt:dPO name="nmasde" address="asdfljh" country="DE" email="nlanfjk" phone="+2637501" />
+        <tilt:dataProtectionOfficer name="nmasde" address="asdfljh" country="DE" email="nlanfjk" phone="+2637501" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1u5a10i</bpmn:incoming>
     </bpmn:endEvent>
