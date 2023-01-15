@@ -1,7 +1,7 @@
 import { ListGroup} from '@bpmn-io/properties-panel';
 import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
 import { useService } from 'bpmn-js-properties-panel';
-import { TextFieldEntry } from '@bpmn-io/properties-panel';
+import { TextFieldEntry, CheckboxEntry } from '@bpmn-io/properties-panel';
 import { 
   findExtensions,
   createElement,
@@ -13,13 +13,13 @@ import { createMetaPropertyGroup } from './meta';
 import { createControllerPropertyGroup } from './controller';
 import { createRepresentativePropertyGroup } from './representative';
 import { createDPOPropertyGroup } from './data-protection-officer';
+import { createDataDisclosedPropertyGroup } from './data-disclosed';
 
 export function addFactory(element, injector, blueprint_array = []){
   const bpmnFactory = injector.get('bpmnFactory'),
         modeling = injector.get('modeling');
   
   function add(event = null, property_blueprint = null) {
-    debugger;
     if(event != null){
       event.stopPropagation();
     }
@@ -46,9 +46,9 @@ export function addFactory(element, injector, blueprint_array = []){
       modeling.updateModdleProperties(element,businessObject,{ extensionElements });
       console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }else{
-      var propertyNameToAdd = property_blueprint.tilt_type.split(":")[1].toLowerCase()
+      // Append a new Element to a parent Element.
       newElement = createElement(property_blueprint.tilt_type,property_blueprint.initialization_properties,property_blueprint.parent_element, bpmnFactory);
-      let update = { [propertyNameToAdd]: property_blueprint.parent_element.get(propertyNameToAdd).concat(newElement) }
+      let update = { [property_blueprint.property_name]: property_blueprint.parent_element.get(property_blueprint.property_name).concat(newElement) }
       modeling.updateModdleProperties(element,property_blueprint.parent_element, update);
       console.log(`TILT: Added ${newElement.$type} to ${element.id}`);
     }
@@ -109,7 +109,6 @@ function createExistingPropertyGroupsList(element, injector){
         break;
       default:
         console.log(`Cannot create group ${extensions[i].$type}.`);
-        debugger;
         break;
     }  
   }
@@ -123,7 +122,7 @@ export function createTiltPropertiesGroup(element, injector, blueprint_array = [
   // return nothing if there are no tilt Elements to create and if there is no tilt Element to add:
   if (items_list.length == 0 && blueprint_array.length == 0){
     return null
-  }createTiltPropertiesGroup
+  }
 
   var addButton = null;
   var addArray = []
@@ -149,6 +148,39 @@ export function createTiltPropertiesGroup(element, injector, blueprint_array = [
     items: items_list
   }
   return tiltGroup
+}
+
+export function createCheckBox(props){
+  const {
+    id,
+    element,
+    properties,
+    type_name,
+    type_label,
+    type_description,
+  } = props;
+
+  const modeling = useService('modeling');
+
+  const setValue = (value) => {
+    var newPropertyObject = {};
+    newPropertyObject[type_name] = value || false;
+    updateTiltProperty(element, properties, newPropertyObject, modeling);
+  };
+
+  const getValue = () => {
+    return properties[type_name] || false;
+  };
+
+  return CheckboxEntry({
+    element:properties,
+    id,
+    description: type_description,
+    label: type_label,
+    getValue,
+    setValue
+  })
+
 }
 
 export function createTextField(props){

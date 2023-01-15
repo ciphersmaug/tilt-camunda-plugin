@@ -8,7 +8,6 @@ import PropertyBlueprint from "../property-blueprint";
 export function createControllerPropertyGroup(properties, element, injector, index=1){
     if(properties.hasOwnProperty("representative")){
       if (properties.representative.length == 0){
-        debugger;
         addFactory(element, injector,[new PropertyBlueprint("tilt:Representative", {}, properties)]).call();
       }
     }

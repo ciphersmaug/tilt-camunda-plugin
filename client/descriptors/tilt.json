@@ -140,27 +140,32 @@
       "superClass": [ "Element" ],
       "properties": [
         {
+          "name": "id",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "category",
           "isAttr": true,
           "type": "String"
         },
         {
-          "name": "purposes",
+          "name": "purpose",
           "isMany": true,
           "type": "Purpose"
         },
         {
-          "name": "legalBases",
+          "name": "legalBasis",
           "isMany": true,
-          "type": "legalBasis"
+          "type": "LegalBasis"
         },
         {
-          "name": "legitimateInterests",
+          "name": "legitimateInterest",
           "isMany": true,
           "type": "LegitimateInterest"
         },
         {
-          "name": "recipients",
+          "name": "recipient",
           "isMany": true,
           "type": "Recipient"
         },
@@ -174,7 +179,174 @@
           "isMany": true,
           "type": "NonDisclosure"
         }
-
+      ]
+    },
+    {
+      "name": "Purpose",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "purpose",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "LegalBasis",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "reference",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "LegitimateInterest",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "exists",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "reasoning",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Recipient",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "division",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "country",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "representative",
+          "isAttr": true,
+          "type": "Representative"
+        },
+        {
+          "name": "category",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Storage",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "temporal",
+          "isMany": true,
+          "type": "StorageTemporal"
+        },
+        {
+          "name": "purposeConditional",
+          "isMany": true,
+          "type": "StoragePurposeConditional"
+        },
+        {
+          "name": "legalBasisConditional",
+          "isMany": true,
+          "type": "StorageLegalBasisConditional"
+        },
+        {
+          "name": "aggregateFunction",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "NonDisclosure",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "legalRequirement",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "contractualRegulation",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "obligationToProvide",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "consequences",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "StorageTemporal",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ttl",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "StorageTemporal",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ttl",
+          "isAttr": true,
+          "type": "String"
+        }
       ]
     }
   ],

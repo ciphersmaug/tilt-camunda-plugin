@@ -44,6 +44,18 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:Controller",{representative:[]},null)
           ]));
       
+      }else if(is(element, 'bpmn:DataObjectReference')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:DataDisclosed",{},null)
+          ],[Number.MAX_SAFE_INTEGER]));
+      
+      }else if(is(element, 'bpmn:MessageFlow')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:ThirdCountriesTransfers",{},null)
+          ],[1]));
+      
       }else{
       
         var newGroup = createTiltPropertiesGroup(element,this._injector,[],[])
