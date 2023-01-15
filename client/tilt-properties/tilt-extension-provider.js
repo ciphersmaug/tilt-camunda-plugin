@@ -42,7 +42,7 @@ export default class TiltPropertiesExtensionProvider {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:Controller",{representative:[]},null)
-          ]));
+          ],[1]));
       
       }else if(is(element, 'bpmn:DataObjectReference')) {
       

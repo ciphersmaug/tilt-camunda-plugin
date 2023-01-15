@@ -83,7 +83,10 @@ function createExistingPropertyGroupsList(element, injector){
   var property_name_to_add;
 
   for (let i = 0; i < extensions.length; i++) {
-    property_name_to_add = extensions[i].$type.split(":")[1]
+    property_name_to_add = extensions[i].$type.split(":")[1];
+    property_name_to_add = property_name_to_add.charAt(0).toLowerCase() + property_name_to_add.slice(1);
+
+    //property_name_to_add = extensions[i].$type.split(":")[1].toLowerCase();
     if(!field_counter.hasOwnProperty(property_name_to_add)){
       field_counter[property_name_to_add] = 0;
     }
@@ -118,7 +121,7 @@ function createExistingPropertyGroupsList(element, injector){
 export function createTiltPropertiesGroup(element, injector, blueprint_array = [], max_extensions_to_create = [1]){
   var existing_groups = createExistingPropertyGroupsList(element, injector)
   var items_list = existing_groups[0], field_counter = existing_groups[1]
- 
+  debugger;
   // return nothing if there are no tilt Elements to create and if there is no tilt Element to add:
   if (items_list.length == 0 && blueprint_array.length == 0){
     return null
