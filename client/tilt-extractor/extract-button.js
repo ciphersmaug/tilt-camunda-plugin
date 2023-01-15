@@ -1,22 +1,24 @@
 import React, { Fragment, PureComponent } from 'camunda-modeler-plugin-helpers/react';
 import { Fill } from 'camunda-modeler-plugin-helpers/components';
+import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
 
 export default class ExtractButton extends PureComponent {
-  constructor(eventBus, bpmnRules, editorActions, canvas, commandStack, elementRegistry, modeling, config) {
+  constructor(eventBus,canvas) {
+    debugger;
     super();
     this.eventBus = eventBus;
-    this.editorActions = editorActions;
+    //this.editorActions = editorActions;
     this.canvas = canvas;
-    this.elementRegistry = elementRegistry;
-    this.config = config;
+    //this.elementRegistry = elementRegistry;
+    //this.config = config;
     this._buttonRef = React.createRef();
   }
   createTiltObject(){
     alert("Hello World")
     debugger;
-
+    uuidv4(); // '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
   }
 
   /**
@@ -39,7 +41,8 @@ export default class ExtractButton extends PureComponent {
 }
 
 ExtractButton.$inject = [
-  'eventBus', 'bpmnRules', 'editorActions', 'canvas', 'commandStack', 'elementRegistry', 'modeling','config'
+  'eventBus',
+  'canvas'
 ];
 
 

@@ -121,7 +121,7 @@ function createExistingPropertyGroupsList(element, injector){
 export function createTiltPropertiesGroup(element, injector, blueprint_array = [], max_extensions_to_create = [1]){
   var existing_groups = createExistingPropertyGroupsList(element, injector)
   var items_list = existing_groups[0], field_counter = existing_groups[1]
-  debugger;
+  //debugger;
   // return nothing if there are no tilt Elements to create and if there is no tilt Element to add:
   if (items_list.length == 0 && blueprint_array.length == 0){
     return null
