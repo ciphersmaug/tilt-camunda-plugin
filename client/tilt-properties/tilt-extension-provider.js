@@ -10,6 +10,7 @@ import { createTiltPropertiesGroup } from './props/tilt-property-groups';
 export default class TiltPropertiesExtensionProvider {
   constructor(propertiesPanel, injector) {
     this._injector = injector;
+    window.bpmnjsInjector = injector;
     propertiesPanel.registerProvider(this);
   }
 

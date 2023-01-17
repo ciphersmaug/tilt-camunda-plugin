@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tilt="mytilturi.com" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1n8kst7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.6.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <bpmn:collaboration id="Collaboration_1k6x9nv">
     <bpmn:extensionElements>
-      <tilt:meta name="My Meta Informaton" />
+      <tilt:meta name="mfhuig" version="2454" language="de" status="active" url="sdfjhlk" />
     </bpmn:extensionElements>
     <bpmn:participant id="Participant_0whnztp" processRef="Process_123" />
     <bpmn:participant id="Participant_1pfiy8g" processRef="Process_0exrbje" />

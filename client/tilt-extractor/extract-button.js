@@ -1,30 +1,101 @@
 import React, { Fragment, PureComponent } from 'camunda-modeler-plugin-helpers/react';
 import { Fill } from 'camunda-modeler-plugin-helpers/components';
+const { getBusinessObject } = require('bpmn-js/lib/util/ModelUtil');
 import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
+import { createPropertyGroup, getPropertyFromModdle } from '../tilt-properties/props/moddle-property-io';
+import TILT from "../descriptors/tilt.json"
 
 export default class ExtractButton extends PureComponent {
-  constructor(eventBus,canvas) {
-    debugger;
+  constructor() {
     super();
-    this.eventBus = eventBus;
-    //this.editorActions = editorActions;
-    this.canvas = canvas;
-    //this.elementRegistry = elementRegistry;
-    //this.config = config;
     this._buttonRef = React.createRef();
   }
-  createTiltObject(){
-    alert("Hello World")
-    debugger;
-    uuidv4(); // '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+
+  getTiltElements(element = null) {
+    // if(!element){
+    //   element = getBusinessObject(canvas.getRootElement());
+    // }
+    var element_properties = [];
+    var tilt_properties = [];
+  
+    if(element instanceof Object && !(element instanceof Array || element instanceof Function)){
+      element_properties = Object.getOwnPropertyNames(element);
+      element_properties = element_properties.filter(e =>
+        !e.startsWith("$") &&
+        !['di','messageFlows','sourceRef','targetRef','incoming','outgoing','flowNodeRef'].includes(e))
+  
+    }else if(Array.isArray(element)){
+      for(let i in element){
+        tilt_properties.push(...this.getTiltElements(element[i]));
+      }
+      return tilt_properties;
+  
+    }else{
+      return tilt_properties;
+  
+    }
+  
+    if(element.hasOwnProperty("$type") && element.$type.startsWith("tilt")){
+      tilt_properties.push(element);
+      console.log(element)
+      return tilt_properties;
+  
+    }
+    
+    for(let p in element_properties){
+  
+      if(element[element_properties[p]] instanceof Object && typeof(element[element_properties[p]]) != "string"){
+        tilt_properties.push(...this.getTiltElements(element[element_properties[p]]));
+  
+      }
+    }
+    return tilt_properties;
+  };
+  
+  getPropertiesToCheck(){
+  
+  }
+  
+  getMeta(tilt_elements = []){
+    tilt_elements = tilt_elements.filter(e => e.$type == "tilt:Meta");
+    var meta = {};
+    var element_properties = tilt_descriptor.types.filter(e => e.name == "Meta")[0].properties
+    var property_names = [];
+    for(let i in element_properties){
+      property_names.push(element_properties[i].name.split(":")[1]);
+    }
+    for(m in tilt_elements){
+      for(p in property_names){
+        if(tilt_elements[m].hasOwnProperty(property_names[p])){
+          meta[property_names[p]] = tilt_elements[m][property_names[p]]
+        }else{
+          meta[property_names[p]] = null;
+        }
+      }
+      
+    }
+    return meta
   }
 
-  /**
-   * render any React component you like to extend the existing
-   * Camunda Modeler application UI
-   */
+  createTiltObject(){
+    var canvas = window.bpmnjsInjector.get("canvas");
+    var rootElement = canvas.getRootElement();
+    var tilt_object = {}
+    var tilt_elements = getBusinessObject(this.getTiltElements(rootElement));
+    tilt_object["meta"] = this.getMeta(tilt_elements);
+    navigator.clipboard.writeText(tilt_object)
+
+    alert("Copied the extracted TILT Document to the clipboard.")
+    debugger;
+  }
+  createPropertyFromFile(){
+    var moddle = TILT;
+    debugger;
+    var x = getPropertyFromModdle("tilt:Meta",moddle);
+  }
+
   render() {
     // we can use fills to hook React components into certain places of the UI
     return <Fragment>
@@ -32,18 +103,20 @@ export default class ExtractButton extends PureComponent {
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
-          onClick={ () =>  this.createTiltObject()}>
+          onClick={ () =>  this.createPropertyFromFile()}>
           Click to create a TILT object...
         </button>
       </Fill>
-    </Fragment>;
+    </Fragment>;onClick
   }
 }
 
-ExtractButton.$inject = [
-  'eventBus',
-  'canvas'
-];
+//ExtractButton.$inject = [
+//  'eventBus',
+//  'canvas',
+//  'injector',
+//  'viewer'
+//];
 
 
 

@@ -8,344 +8,571 @@
   "types": [
     {
       "name": "Meta",
+      "label": "Meta information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "name",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Name",
+          "description": "The Name of the Company.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "created",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Created",
+          "description": "The timestamp this document was created.",
+          "regex": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+          "errMsg": "This field must have an ISO Timestamp."
         },
         {
           "name": "modified",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Modified",
+          "description": "The timestamp this document was last modified.",
+          "regex": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+          "errMsg": "This field must have an ISO Timestamp."
         },
         {
           "name": "version",
           "isAttr": true,
-          "type": "Integer"
+          "type": "Integer",
+          "label": "Version",
+          "description": "The version of the transparency information.",
+          "regex": "^[1-9]\\d*$",
+          "errMsg": "This field must have an integer value."
         },
         {
           "name": "language",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Language",
+          "description": "The language tag of this document.",
+          "regex": "^(aa|ab|ae|af|ak|am|an|ar|as|av|ay|az|az|ba|be|bg|bh|bi|bm|bn|bo|br|bs|ca|ce|ch|co|cr|cs|cu|cv|cy|da|de|dv|dz|ee|el|en|eo|es|et|eu|fa|ff|fi|fj|fo|fr|fy|ga|gd|gl|gn|gu|gv|ha|he|hi|ho|hr|ht|hu|hy|hz|ia|id|ie|ig|ii|ik|io|is|it|iu|ja|jv|ka|kg|ki|kj|kk|kl|km|kn|ko|kr|ks|ku|kv|kw|ky|la|lb|lg|li|ln|lo|lt|lu|lv|mg|mh|mi|mk|ml|mn|mr|ms|mt|my|na|nb|nd|ne|ng|nl|nn|no|nr|nv|ny|oc|oj|om|or|os|pa|pi|pl|ps|pt|qu|rm|rn|ro|ru|rw|sa|sc|sd|se|sg|si|sk|sl|sm|sn|so|sq|sr|ss|st|su|sv|sw|ta|te|tg|th|ti|tk|tl|tn|to|tr|ts|tt|tw|ty|ug|uk|ur|uz|ve|vi|vo|wa|wo|xh|yi|yo|za|zh|zu)$",
+          "errMsg": "This field must have a valid language abbreviation code."
         },
         {
           "name": "status",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Status",
+          "description": "The status of whether this policy is actively in use.",
+          "regex": "^(active|inactive)$",
+          "errMsg": "This field must be either be 'active' or 'inactive'."
         },
         {
           "name": "url",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "URL",
+          "description": "The URL under which the privacy policy can be found.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must be filled in."
         }
       ]
     },
     {
       "name": "Controller",
+      "label": "Controller information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "name",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Name",
+          "description": "Name of the Controller.",
+          "regex":"^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "division",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Division",
+          "description": "Serves to differentiate between different areas of a company; particularly relevant for large companies.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         },
         {
           "name": "address",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Address",
+          "description": "Address of the controller.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "country",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Country",
+          "description": "Country location of the controller.",
+          "regex": "^[A-Z][A-Z]$",
+          "errMsg": "All country codes follow the established ones ISO 3166 country abbreviation standard."
         },
         {
           "name": "representative",
           "isMany": true,
-          "type": "Representative"
+          "type": "Representative",
+          "label": "Representative information",
+          "max": 1
         }
       ]
     },
     {
       "name": "Representative",
+      "label": "Representative information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "name",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Name",
+          "description": "Name of the representative.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "email",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "E-Mail",
+          "description": "E-Mail address of the representative.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "phone",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Phone",
+          "description": "Phone number of the representative.",
+          "regex": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\/0-9]*$",
+          "errMsg": "Must be a valid phone number such as: '+49 151 1234 5678'"
         }
       ]
     },
     {
       "name": "DataProtectionOfficer",
+      "label": "Data protection officer information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "name",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Name",
+          "description": "The full name of the Data Protection Officer.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "address",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Address",
+          "description": "The Address of the Data Protection Officer.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "country",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Country",
+          "description": "The country of the Data Protection Officer.",
+          "regex": "^[A-Z][A-Z]$",
+          "errMsg": "All country codes follow the established ones ISO 3166 country abbreviation standard."
         },
         {
           "name": "email",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "E-Mail",
+          "description": "The contact email address of the Data Protection Officer.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "phone",
           "isAttr": true,
-          "type": "String"
-        },
-        {
-          "name": "values",
-          "isMany": true,
-          "type": "Element"
+          "type": "String",
+          "label": "Phone",
+          "description": "The phone number of the Data Protection Officer (may include country prefix).",
+          "regex": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\/0-9]*$",
+          "errMsg": "Must be a valid phone number such as: '+49 151 1234 5678'"
         }
       ]
     },
     {
       "name": "DataDisclosed",
+      "label": "Disclosed data information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "id",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "ID",
+          "description": "The id of a data item that is disclosed. The id is necessary to distinguish several processing tasks of the same data item (locally unique ID that can be based on the database implementation).",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "category",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Category",
+          "description": "The data (category) the data disclosed is referred to.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "purpose",
           "isMany": true,
-          "type": "Purpose"
+          "type": "Purpose",
+          "label": "Purposes",
+          "max": -1
         },
         {
           "name": "legalBasis",
           "isMany": true,
-          "type": "LegalBasis"
+          "type": "LegalBasis",
+          "label": "Legal Bases",
+          "max": -1
         },
         {
           "name": "legitimateInterest",
           "isMany": true,
-          "type": "LegitimateInterest"
+          "type": "LegitimateInterest",
+          "label": "Legitimate interests",
+          "max": -1
         },
         {
           "name": "recipient",
           "isMany": true,
-          "type": "Recipient"
+          "type": "Recipient",
+          "label": "Recipients information",
+          "max": -1
         },
         {
           "name": "storage",
           "isMany": true,
-          "type": "Storage"
+          "type": "Storage",
+          "label": "Storage information",
+          "max": -1
         },
         {
           "name": "nonDisclosure",
           "isMany": true,
-          "type": "NonDisclosure"
+          "type": "NonDisclosure",
+          "label": "Non Disclosure",
+          "max": 1
         }
       ]
     },
     {
       "name": "Purpose",
+      "label": "Purpose",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "purpose",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Purpose",
+          "description": "In this schema the purpose is specified (i.e. a headline or purpose category).he id of a data item that is disclosed. The id is necessary to distinguish several processing tasks of the same data item (locally unique ID that can be based on the database implementation).",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "description",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Description",
+          "description": "This schema refers to an exact description of the purpose the data is processed for.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         }
       ]
     },
     {
       "name": "LegalBasis",
+      "label": "Legal basis",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "reference",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Reference",
+          "description": "This field refers to the reference in legal regulations (laws, orders, declaration etc.).",
+          "regex": "^[A-Z]*([-]?[0-9]*|[a-z]*)*$",
+          "errMsg": "The format is set to uppercase letters for the legal text followed by hyphened numbers and lowercase letters for the exact location."
         },
         {
           "name": "description",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Description",
+          "description": "An explanation about the legal basis used.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         }
       ]
     },
     {
       "name": "LegitimateInterest",
+      "label": "Legitimate interest",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "exists",
           "isAttr": true,
-          "type": "Boolean"
+          "type": "Boolean",
+          "label": "Exists",
+          "description": "The legitimate interest only has to be stated if the processing is carried out in accordance with Art. 13 (1d). This field refers to the existence of such an interest.",
+          "regex": "",
+          "errMsg": ""
         },
         {
           "name": "reasoning",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Reasoning",
+          "description": "If the legitimate interest has to be stated because the processing is carried out in accordance with Art. 13 (1d), it is described in here.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         }
       ]
     },
     {
       "name": "Recipient",
+      "label": "Recipient",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "name",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Name",
+          "description": "The name of the third party (recipient).",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         },
         {
           "name": "division",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Division",
+          "description": "The division of the third party (recipient) for structuring controllers into smaller entities.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         },
         {
           "name": "address",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Address",
+          "description": "The address of the third party (recipient).",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         },
         {
           "name": "country",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Country",
+          "description": "The country in which the recipient is located at. Attention: This explictly specifies third country transfers!",
+          "regex": "^[A-Z][A-Z]$",
+          "errMsg": "This field needs to be a country code. It is not required."
         },
         {
           "name": "representative",
           "isAttr": true,
-          "type": "Representative"
+          "type": "Representative",
+          "label": "Representative information",
+          "max": 1
         },
         {
           "name": "category",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Category",
+          "description": "The category of the the recipient.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         }
       ]
     },
     {
       "name": "Storage",
+      "label": "Storage information",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "temporal",
           "isMany": true,
-          "type": "StorageTemporal"
+          "type": "Temporal",
+          "label": "Temporal storage",
+          "max": -1
         },
         {
           "name": "purposeConditional",
           "isMany": true,
-          "type": "StoragePurposeConditional"
+          "type": "PurposeConditional",
+          "label": "Purpose conditional storage",
+          "max": -1
         },
         {
           "name": "legalBasisConditional",
           "isMany": true,
-          "type": "StorageLegalBasisConditional"
+          "type": "LegalBasisConditional",
+          "label": "Legal basis conditional storage",
+          "max": -1
         },
         {
           "name": "aggregateFunction",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Aggregation function",
+          "description": "The aggregation function describes the calculation basis when specifying several time intervals. For example, if there is storage for 2 weeks for technical reasons (e.g. backup), but there is a legally longer retention period, the maximum aggregation function (max) would be selected (standard case).",
+          "regex": "^min|max|avg|sum$",
+          "errMsg": "Aggregation functions available: min, max, sum, avg"
         }
       ]
     },
     {
       "name": "NonDisclosure",
+      "label": "Non Disclosure",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "legalRequirement",
           "isAttr": true,
-          "type": "Boolean"
+          "type": "Boolean",
+          "label": "Legal requirement",
+          "description": "Is there a legal requirement to collect these data?",
+          "regex": "",
+          "errMsg": ""
         },
         {
           "name": "contractualRegulation",
           "isAttr": true,
-          "type": "Boolean"
+          "type": "Boolean",
+          "label": "Aggregation function",
+          "description": "Is there a contractual regulation to collect these data?",
+          "regex": "",
+          "errMsg": ""
         },
         {
           "name": "obligationToProvide",
           "isAttr": true,
-          "type": "Boolean"
+          "type": "Boolean",
+          "label": "Obligation to Provide information",
+          "description": "Is there an obligation for the data subject to provide these data?",
+          "regex": "",
+          "errMsg": ""
         },
         {
           "name": "consequences",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Consequences",
+          "description": "Description of the consequences in the case of non-disclosure.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         }
       ]
     },
     {
-      "name": "StorageTemporal",
+      "name": "Temporal",
+      "label": "Temporal condition",
       "superClass": [ "Element" ],
       "properties": [
         {
           "name": "description",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Description",
+          "description": "The description why the data has to be stored.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
         },
         {
           "name": "ttl",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Time to live",
+          "description": "The TTL (Time-to-Live) specifies the lifetime of this data (category).",
+          "regex": "^(\\d{4}(-\\d{2}(-\\d{2})?(?!:))?(T\\d{2}(:\\d{2}(:\\d{2})?(\\.\\d+)?)?)?(Z|([+,-]\\d{2}(:\\d{2})?))?)?P(([0-9]+([.,][0-9]*)?Y)?([0-9]+([.,][0-9]*)?M)?([0-9]+([.,][0-9]*)?D)?T?([0-9]+([.,][0-9]*)?H)?([0-9]+([.,][0-9]*)?M)?([0-9]+([.,][0-9]*)?S)?)|\\d{4}-?(0[1-9]|11|12)-?(?:[0-2]\\d|30|31)T((?:[0-1][0-9]|[2][0-3]):?(?:[0-5][0-9]):?(?:[0-5][0-9]|60)|2400|24:00)$",
+          "errMsg": "It follows the ISO 8601 for time spans."
         }
       ]
     },
     {
-      "name": "StorageTemporal",
+      "name": "PurposeConditional",
+      "label": "Purpose condition",
       "superClass": [ "Element" ],
       "properties": [
         {
-          "name": "description",
-          "isAttr": true,
-          "type": "String"
-        },
+          "name": "item",
+          "isMany": true,
+          "type": "Item",
+          "label": "Purpose conditions",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "LegalBasisConditional",
+      "label": "Legal basis condition",
+      "superClass": [ "Element" ],
+      "properties": [
         {
-          "name": "ttl",
+          "name": "legalItem",
+          "isMany": true,
+          "type": "LegalItem"
+        }
+      ]
+    },
+    {
+      "name": "Item",
+      "label": "Array item",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "value",
           "isAttr": true,
-          "type": "String"
+          "type": "String",
+          "label": "Value",
+          "description": "",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        }
+      ]
+    },
+    {
+      "name": "LegalItem",
+      "label": "Legal Basis",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "legalbais",
+          "isAttr": true,
+          "type": "String",
+          "label": "Value",
+          "description": "This must be a reference to a law text.",
+          "regex": "^[A-Z]*([-]?[0-9]*|[a-z]*)*$",
+          "errMsg": "This field must have a value."
         }
       ]
     }

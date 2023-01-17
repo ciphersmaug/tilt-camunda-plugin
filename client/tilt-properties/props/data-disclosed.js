@@ -1,7 +1,7 @@
 import { createCheckBox, removeFactory} from "./tilt-property-groups";
 const addFactory = require("./tilt-property-groups").addFactory;
 import { createTextField } from "./tilt-property-groups";
-import { createRepresentativePropertyGroup } from "./representative";
+//import { createRepresentativePropertyGroup } from "./representative";
 import { ListGroup, Group } from "@bpmn-io/properties-panel";
 import PropertyBlueprint from "../property-blueprint";
 
