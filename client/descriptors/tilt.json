@@ -527,7 +527,7 @@
           "name": "item",
           "isMany": true,
           "type": "Item",
-          "label": "Purpose conditions",
+          "label": "Purposes",
           "max": -1
         }
       ]
@@ -540,7 +540,9 @@
         {
           "name": "legalItem",
           "isMany": true,
-          "type": "LegalItem"
+          "type": "LegalItem",
+          "label": "Legal bases",
+          "max": -1
         }
       ]
     },
@@ -566,13 +568,157 @@
       "superClass": [ "Element" ],
       "properties": [
         {
-          "name": "legalbais",
+          "name": "legalbasis",
           "isAttr": true,
           "type": "String",
           "label": "Value",
           "description": "This must be a reference to a law text.",
           "regex": "^[A-Z]*([-]?[0-9]*|[a-z]*)*$",
           "errMsg": "This field must have a value."
+        }
+      ]
+    },
+    {
+      "name": "ThirdCountriesTransfer",
+      "label": "Third country transfer",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "country",
+          "isAttr": true,
+          "type": "String",
+          "label": "Country",
+          "description": "The country code of the third country.",
+          "regex": "^[A-Z][A-Z]$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "adequacyDecision",
+          "isMany": true,
+          "type": "AdequacyDecision",
+          "label": "Adequacy decision",
+          "max": 1
+        },
+        {
+          "name": "appropriateGuarantees",
+          "isMany": true,
+          "type": "AppropriateGuarantees",
+          "label": "Appropriate guarantees",
+          "max": 1
+        },
+        {
+          "name": "presenceOfEnforceableRightsAndEffectiveRemedies",
+          "isMany": true,
+          "type": "PresenceOfEnforceableRightsAndEffectiveRemedies",
+          "label": "Enforceable rights and effective remedies",
+          "max": 1
+        },
+        {
+          "name": "standardDataProtectionClause",
+          "isMany": true,
+          "type": "StandardDataProtectionClause",
+          "label": "Data protection clause",
+          "max": 1
+        }
+      ]
+    },
+    {
+      "name": "AdequacyDecision",
+      "label": "Adequacy decision",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Adequacy decision by the European commission exists?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the adequacy decision by the European commission.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        }
+      ]
+    },
+    {
+      "name": "AppropriateGuarantees",
+      "label": "Appropriate guarantees",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Do suitable guarantees according to Art. 45 exist?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of suitable guarantees according to Art. 45",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        }
+      ]
+    },
+    {
+      "name": "PresenceOfEnforceableRightsAndEffectiveRemedies",
+      "label": "Enforceable Right and effective remedies",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Presence of enforceable rights and effective remedies?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of enforceable rights and effective remedies.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        }
+      ]
+    },
+    {
+      "name": "StandardDataProtectionClause",
+      "label": "Standard data protection clause",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Does a standard data protection clause exist?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "An explanation about the standard data protection clause (may include link).",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
         }
       ]
     }

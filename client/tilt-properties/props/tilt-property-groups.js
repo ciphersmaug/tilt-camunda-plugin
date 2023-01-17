@@ -9,9 +9,8 @@ import {
   updateTiltProperty
 } from '../io-extension-helper';
 
-import { createDataDisclosedPropertyGroup } from './data-disclosed';
 import TILT from "../../descriptors/tilt.json"
-import { createPropertyGroup, createPropertyGroupFromModdle } from './moddle-property-io';
+import { createPropertyGroupFromModdle } from './moddle-property-io';
 
 export function addFactory(element, injector, blueprint_array = []){
   const bpmnFactory = injector.get('bpmnFactory'),
