@@ -57,6 +57,12 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:ThirdCountriesTransfer",{},null)
           ],[1]));
       
+      }else if(is(element, 'bpmn:ExclusiveGateway')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:AutomatedDecisionMaking",{},null)
+          ],[1]));
+      
       }else{
       
         var newGroup = createTiltPropertiesGroup(element,this._injector,[],[])

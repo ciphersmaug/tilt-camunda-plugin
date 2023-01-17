@@ -4,7 +4,7 @@ const { getBusinessObject } = require('bpmn-js/lib/util/ModelUtil');
 import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
-import { createPropertyGroup, getPropertyFromModdle } from '../tilt-properties/props/moddle-property-io';
+import {getPropertyFromModdle } from '../tilt-properties/props/moddle-property-io';
 import TILT from "../descriptors/tilt.json"
 
 export default class ExtractButton extends PureComponent {
@@ -54,10 +54,6 @@ export default class ExtractButton extends PureComponent {
     return tilt_properties;
   };
   
-  getPropertiesToCheck(){
-  
-  }
-  
   getMeta(tilt_elements = []){
     tilt_elements = tilt_elements.filter(e => e.$type == "tilt:Meta");
     var meta = {};
@@ -80,6 +76,7 @@ export default class ExtractButton extends PureComponent {
   }
 
   createTiltObject(){
+    debugger;
     var canvas = window.bpmnjsInjector.get("canvas");
     var rootElement = canvas.getRootElement();
     var tilt_object = {}
@@ -90,11 +87,39 @@ export default class ExtractButton extends PureComponent {
     alert("Copied the extracted TILT Document to the clipboard.")
     debugger;
   }
+
   createPropertyFromFile(){
     var moddle = TILT;
     debugger;
     var x = getPropertyFromModdle("tilt:Meta",moddle);
   }
+
+  async saveFile(){
+    const opts = {
+      suggestedName: "NewProcessTiltDocument.tilt.json",
+      types: [{
+        description: 'TILT .json file',
+        accept: {'application/json': ['.tilt.json']},
+      }],
+      excludeAcceptAllOption: true,
+    };
+        try {
+          // Show the file save dialog.
+          const handle = await window.showSaveFilePicker(opts);
+          // Write to the file.
+          const writable = await handle.createWritable();
+          debugger;
+          await writable.write("Hello World");
+          await writable.close();
+          return;
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            alert(err.name +": "+ err.message);
+            return;
+          }
+        }
+  }
+
 
   render() {
     // we can use fills to hook React components into certain places of the UI
@@ -103,7 +128,7 @@ export default class ExtractButton extends PureComponent {
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
-          onClick={ () =>  this.createPropertyFromFile()}>
+          onClick={ () =>  this.createTiltObject()}>
           Click to create a TILT object...
         </button>
       </Fill>
@@ -117,28 +142,3 @@ export default class ExtractButton extends PureComponent {
 //  'injector',
 //  'viewer'
 //];
-
-
-
-  //async saveFile2(){
-  //  navigator.clipboard.writeText("HELLO WORLD");
-  //  alert("This is currently not available as it needs to be implemented.")
-  //  return;
-  //}
-  //async saveFile(){
-  //  try {
-  //    // Show the file save dialog.
-  //    const handle = await window.showSaveFilePicker();
-  //    // Write to the file.
-  //    const writable = await handle.createWritable();
-  //    debugger;
-  //    await writable.write("Hello World");
-  //    await writable.close();
-  //    return;
-  //  } catch (err) {
-  //    if (err.name !== 'AbortError') {
-  //      console.error(err.name, err.message);
-  //      return;
-  //    }
-  //  }
-  //}

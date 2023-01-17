@@ -721,6 +721,40 @@
           "errMsg": "This field can be anything. It is not required."
         }
       ]
+    },
+    {
+      "name": "AutomatedDecisionMaking",
+      "label": "Automated decision making",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "inUse",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "In use",
+          "description": "Is automated decision making in use?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "logicInvolved",
+          "isAttr": true,
+          "type": "String",
+          "label": "Logic involved",
+          "description": "An explanation about the logic involved to automated decision making.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "scopeAndIntendedEffects",
+          "isAttr": true,
+          "type": "String",
+          "label": "Scope and intended effects",
+          "description": "Scope and intended effects of such processing for the data subject.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        }
+      ]
     }
   ],
   "emumerations": [],
