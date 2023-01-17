@@ -755,6 +755,72 @@
           "errMsg": "This field can be anything. It is not required."
         }
       ]
+    },
+    {
+      "name": "Sources",
+      "label": "Sources",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "id",
+          "isAttr": true,
+          "type": "String",
+          "label": "ID",
+          "description": "This refers to an locally unique ID in an arbitrary but deterministic format.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "dataCategory",
+          "isAttr": true,
+          "type": "String",
+          "label": "Data category",
+          "description": "The category the data refer to.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "source",
+          "isMany": true,
+          "type": "Source",
+          "label": "Sources",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "Source",
+      "label": "Source",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the source the data is taken from.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL (reference) where the data is taken from.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "publiclyAvailable",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Publicly available",
+          "description": "Are these data publicly available?",
+          "regex": "",
+          "errMsg": ""
+        }
+      ]
     }
   ],
   "emumerations": [],

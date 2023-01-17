@@ -63,6 +63,12 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:AutomatedDecisionMaking",{},null)
           ],[1]));
       
+      }else if(is(element, 'bpmn:DataStoreReference')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Sources",{},null)
+          ],[1]));
+      
       }else{
       
         var newGroup = createTiltPropertiesGroup(element,this._injector,[],[])
