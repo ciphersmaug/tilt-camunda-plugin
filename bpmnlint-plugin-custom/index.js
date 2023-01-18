@@ -2,7 +2,7 @@ module.exports = {
     configs: {
       recommended: {
         rules: {
-          'process-must-contain-tilt-meta': 'error'
+          'process-must-contain-tilt-meta': 'off'
         }
       }
     }

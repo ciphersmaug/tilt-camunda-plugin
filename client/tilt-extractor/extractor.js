@@ -1,4 +1,3 @@
-'strict: false'
 import { getBusinessObject } from "bpmn-js/lib/util/ModelUtil";
 import schema from "../descriptors/tilt-schema.json";
 
@@ -19,6 +18,7 @@ export function filterObjectsWithTiltProperty(businessObjects,tiltProperty){
             tiltProperties.push(...extensionElements.values.filter(e => e.$type == tiltProperty))
         }
     }
+    debugger;
     return tiltProperties;
 }
 export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
@@ -76,6 +76,18 @@ function extractSingleField(singleArray){
     }
     return cleanPropertyThroughSchema(singleArray[0]);
 }
+function extractMultipleFields(multipleArray){
+    if(!((multipleArray instanceof Array) && (multipleArray.length > 1))){
+        alert(`TILT Extractor error on ${multipleArray[0]} field.`)
+        debugger;
+        return {};
+    }
+    var r = [];
+    for(let a in multipleArray){
+        r.push(cleanPropertyThroughSchema(multipleArray[a]))
+    }
+    return r;
+}
 
 export function buildTiltDocument(canvas){
     const businessObjects = getBusinessObjectsFromCanvas(canvas);
@@ -83,5 +95,6 @@ export function buildTiltDocument(canvas){
     tiltDocument["meta"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:Meta"));
     tiltDocument["controller"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:Controller"));
     tiltDocument["dataProtectionOfficer"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:DataProtectionOfficer"));
+    tiltDocument["dataDisclosed"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:DataDisclosed"));
     return tiltDocument;
 }

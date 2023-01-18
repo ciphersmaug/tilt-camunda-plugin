@@ -78,7 +78,26 @@
       </bpmn:dataOutputAssociation>
     </bpmn:task>
     <bpmn:dataStoreReference id="DataStoreReference_1iam1is" />
-    <bpmn:dataObjectReference id="DataObjectReference_0kikv8q" dataObjectRef="DataObject_1ya2ie3" />
+    <bpmn:dataObjectReference id="DataObjectReference_0kikv8q" dataObjectRef="DataObject_1ya2ie3">
+      <bpmn:extensionElements>
+        <tilt:dataDisclosed>
+          <tilt:purposes />
+          <tilt:legalBases />
+          <tilt:legitimateInterests />
+          <tilt:recipients />
+          <tilt:storage>
+            <tilt:temporal />
+            <tilt:purposeConditional>
+              <tilt:item />
+            </tilt:purposeConditional>
+            <tilt:legalBasisConditional>
+              <tilt:legalItem />
+            </tilt:legalBasisConditional>
+          </tilt:storage>
+          <tilt:nonDisclosure />
+        </tilt:dataDisclosed>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
     <bpmn:dataObject id="DataObject_1ya2ie3" />
   </bpmn:process>
   <bpmn:process id="Process_0exrbje" isExecutable="false">

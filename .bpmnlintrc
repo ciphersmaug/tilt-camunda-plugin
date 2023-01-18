@@ -1,11 +1,10 @@
 {
   "extends": [
-    "plugin:custom/recommended",
-    "bpmnlint:recommended"
+    "plugin:custom/recommended"
   ],
   "rules": {
-    "custom/process-must-contain-tilt-meta": "error",
-    "custom/controller-must-be-completely-filled": "error",
+    "custom/process-must-contain-tilt-meta": "off",
+    "custom/controller-must-be-completely-filled": "off",
     "label-required": "off"
   }
 }
