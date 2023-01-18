@@ -93,6 +93,16 @@ export default class ExtractButton extends PureComponent {
     debugger;
     var x = getPropertyFromModdle("tilt:Meta",moddle);
   }
+  saveFile2(){
+    debugger;
+    var object = {Hello: "World"}
+    var json_string = JSON.stringify(object, undefined, 2);
+    var link = document.createElement('a');
+    link.download = 'data.json';
+    var blob = new Blob([json_string], {type: 'text/plain'});
+    link.href = window.URL.createObjectURL(blob);
+    link.click();
+  }
 
   async saveFile(){
     const opts = {
@@ -128,7 +138,7 @@ export default class ExtractButton extends PureComponent {
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
-          onClick={ () =>  this.createTiltObject()}>
+          onClick={ () =>  this.saveFile2()}>
           Click to create a TILT object...
         </button>
       </Fill>
