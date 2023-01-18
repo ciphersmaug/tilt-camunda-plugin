@@ -15,10 +15,13 @@ export function filterObjectsWithTiltProperty(businessObjects,tiltProperty){
     for(let bo in businessObjects){
         extensionElements = businessObjects[bo].get("extensionElements");
         if(extensionElements){
+            if(!extensionElements.hasOwnProperty("values")){
+                console.log(extensionElements)
+                continue;
+            }
             tiltProperties.push(...extensionElements.values.filter(e => e.$type == tiltProperty))
         }
     }
-    debugger;
     return tiltProperties;
 }
 export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
@@ -26,7 +29,13 @@ export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
     propertyName = propertyName.charAt(0).toLowerCase() + propertyName.slice(1);
     var schemaProperties = getSchemaProperty(propertyName,tiltSchema).properties;
     if(!schemaProperties){
-        console.error("cant find Property in Tilt schema")
+        try{
+            schemaProperties = getSchemaProperty(propertyName,tiltSchema).items.anyOf[0].properties
+        }catch{
+            debugger;
+            console.error("cant find Property in Tilt schema")
+        }
+        
     }
     var cleanObject = {};
     for(let s in schemaProperties){
@@ -34,7 +43,6 @@ export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
             if(tiltProperty.get(s) instanceof Array && tiltProperty.get(s).length == 1){
                 cleanObject[s] = cleanPropertyThroughSchema(...tiltProperty.get(s),tiltSchema)
             }else{
-                debugger;
                 var arr = tiltProperty.get(s);
                 cleanObject[s] = [];
                 for(let a in arr){
@@ -42,8 +50,11 @@ export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
                 }
             }
         }else if(schemaProperties[s].type=="array"){
-            debugger;
-            console.error("Not implemented yet.")
+            var arr = tiltProperty.get(s);
+                cleanObject[s] = [];
+                for(let a in arr){
+                    cleanObject[s].push(cleanPropertyThroughSchema(arr[a],tiltSchema))
+                }
         }else{
             cleanObject[s] = tiltProperty.get(s)
         }
@@ -54,17 +65,27 @@ export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
     return cleanObject
 }
 
+//else if(tiltSchema.hasOwnProperty("items")){
+//    debugger;
+//    result = getSchemaProperty(propertyName,tiltSchema.items.anyOf[0])
+//}
+
 export function getSchemaProperty(propertyName, tiltSchema = schema){
+    if(tiltSchema.hasOwnProperty("items")){
+        tiltSchema = tiltSchema.items.anyOf[0];
+    }
     for(let p in tiltSchema.properties){
         if(p == propertyName){
             return tiltSchema.properties[p];
         }else{
-            var result = getSchemaProperty(propertyName,tiltSchema.properties[p]);
+            var result;
+            result = getSchemaProperty(propertyName,tiltSchema.properties[p]);
             if(Object.keys(result).length != 0){
                 return result;
-             }
+            }
         }
     }
+    console.log(propertyName)
     return {};
 }
 
@@ -77,7 +98,7 @@ function extractSingleField(singleArray){
     return cleanPropertyThroughSchema(singleArray[0]);
 }
 function extractMultipleFields(multipleArray){
-    if(!((multipleArray instanceof Array) && (multipleArray.length > 1))){
+    if(!(multipleArray instanceof Array)){
         alert(`TILT Extractor error on ${multipleArray[0]} field.`)
         debugger;
         return {};
@@ -96,5 +117,8 @@ export function buildTiltDocument(canvas){
     tiltDocument["controller"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:Controller"));
     tiltDocument["dataProtectionOfficer"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:DataProtectionOfficer"));
     tiltDocument["dataDisclosed"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:DataDisclosed"));
+    tiltDocument["thirdCountryTransfers"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:ThirdCountryTransfers"));
+    tiltDocument["sources"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:Sources"));
+    tiltDocument["automatedDecisionMaking"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:AutomatedDecisionMaking"));
     return tiltDocument;
 }

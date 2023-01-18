@@ -6,8 +6,19 @@
     </bpmn:extensionElements>
     <bpmn:participant id="Participant_0whnztp" processRef="Process_123" />
     <bpmn:participant id="Participant_1pfiy8g" processRef="Process_0exrbje" />
-    <bpmn:messageFlow id="Flow_0ddhymt" sourceRef="Event_1lvbre8" targetRef="Event_0wfbdsl" />
-    <bpmn:messageFlow id="Flow_0xdpgk8" sourceRef="Event_1y5aqpw" targetRef="Event_0rt9yfn" />
+    <bpmn:messageFlow id="Flow_0ddhymt" sourceRef="Event_1lvbre8" targetRef="Event_0wfbdsl">
+      <bpmn:extensionElements />
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="Flow_0xdpgk8" sourceRef="Event_1y5aqpw" targetRef="Event_0rt9yfn">
+      <bpmn:extensionElements>
+        <tilt:thirdCountryTransfers>
+          <tilt:adequacyDecision available="true" description="x" />
+          <tilt:appropriateGuarantees available="true" description="yxc" />
+          <tilt:presenceOfEnforceableRightsAndEffectiveRemedies available="true" description="yc" />
+          <tilt:standardDataProtectionClause available="true" description="yxc" />
+        </tilt:thirdCountryTransfers>
+      </bpmn:extensionElements>
+    </bpmn:messageFlow>
   </bpmn:collaboration>
   <bpmn:process id="Process_123" isExecutable="false">
     <bpmn:startEvent id="Event_0eywlz5">
@@ -28,6 +39,9 @@
       <bpmn:outgoing>Flow_0t6zlny</bpmn:outgoing>
     </bpmn:task>
     <bpmn:exclusiveGateway id="Gateway_1do7w24">
+      <bpmn:extensionElements>
+        <tilt:automatedDecisionMaking inUse="true" logicInvolved="khslf" scopeAndIntendedEffects="lkjnk" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0t6zlny</bpmn:incoming>
       <bpmn:outgoing>Flow_05p3wo3</bpmn:outgoing>
       <bpmn:outgoing>Flow_1qbbh85</bpmn:outgoing>
@@ -77,10 +91,16 @@
         <bpmn:targetRef>DataObjectReference_0kikv8q</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:task>
-    <bpmn:dataStoreReference id="DataStoreReference_1iam1is" />
+    <bpmn:dataStoreReference id="DataStoreReference_1iam1is">
+      <bpmn:extensionElements>
+        <tilt:sources id="dasd" dataCategory="asd">
+          <tilt:source description="sadnlk" url="af" publiclyAvailable="true" />
+        </tilt:sources>
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
     <bpmn:dataObjectReference id="DataObjectReference_0kikv8q" dataObjectRef="DataObject_1ya2ie3">
       <bpmn:extensionElements>
-        <tilt:dataDisclosed>
+        <tilt:dataDisclosed id="fsdf" category="sss">
           <tilt:purposes />
           <tilt:legalBases />
           <tilt:legitimateInterests />
@@ -96,6 +116,7 @@
           </tilt:storage>
           <tilt:nonDisclosure />
         </tilt:dataDisclosed>
+        <tilt:dataDisclosed id="dsfdsf" category="dsf" />
       </bpmn:extensionElements>
     </bpmn:dataObjectReference>
     <bpmn:dataObject id="DataObject_1ya2ie3" />

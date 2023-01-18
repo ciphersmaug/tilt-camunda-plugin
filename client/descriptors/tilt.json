@@ -579,7 +579,7 @@
       ]
     },
     {
-      "name": "ThirdCountriesTransfers",
+      "name": "ThirdCountryTransfers",
       "label": "Third country transfer",
       "superClass": [ "Element" ],
       "properties": [

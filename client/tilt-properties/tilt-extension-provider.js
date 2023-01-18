@@ -54,7 +54,7 @@ export default class TiltPropertiesExtensionProvider {
       }else if(is(element, 'bpmn:MessageFlow')) {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
-          new PropertyBlueprint("tilt:ThirdCountriesTransfer",{},null)
+          new PropertyBlueprint("tilt:ThirdCountryTransfers",{},null)
           ],[1]));
       
       }else if(is(element, 'bpmn:ExclusiveGateway')) {
