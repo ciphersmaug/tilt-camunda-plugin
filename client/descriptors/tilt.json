@@ -26,7 +26,7 @@
           "type": "String",
           "label": "Created",
           "description": "The timestamp this document was created.",
-          "regex": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+          "regex": "^([PropertyName\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
           "errMsg": "This field must have an ISO Timestamp."
         },
         {
@@ -236,30 +236,30 @@
           "errMsg": "This field must have a value."
         },
         {
-          "name": "purpose",
+          "name": "purposes",
           "isMany": true,
-          "type": "Purpose",
+          "type": "Purposes",
           "label": "Purposes",
           "max": -1
         },
         {
-          "name": "legalBasis",
+          "name": "legalBases",
           "isMany": true,
-          "type": "LegalBasis",
+          "type": "LegalBases",
           "label": "Legal Bases",
           "max": -1
         },
         {
-          "name": "legitimateInterest",
+          "name": "legitimateInterests",
           "isMany": true,
-          "type": "LegitimateInterest",
+          "type": "LegitimateInterests",
           "label": "Legitimate interests",
           "max": -1
         },
         {
-          "name": "recipient",
+          "name": "recipients",
           "isMany": true,
-          "type": "Recipient",
+          "type": "Recipients",
           "label": "Recipients information",
           "max": -1
         },
@@ -280,7 +280,7 @@
       ]
     },
     {
-      "name": "Purpose",
+      "name": "Purposes",
       "label": "Purpose",
       "superClass": [ "Element" ],
       "properties": [
@@ -305,7 +305,7 @@
       ]
     },
     {
-      "name": "LegalBasis",
+      "name": "LegalBases",
       "label": "Legal basis",
       "superClass": [ "Element" ],
       "properties": [
@@ -330,7 +330,7 @@
       ]
     },
     {
-      "name": "LegitimateInterest",
+      "name": "LegitimateInterests",
       "label": "Legitimate interest",
       "superClass": [ "Element" ],
       "properties": [
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "name": "Recipient",
+      "name": "Recipients",
       "label": "Recipient",
       "superClass": [ "Element" ],
       "properties": [
@@ -579,7 +579,7 @@
       ]
     },
     {
-      "name": "ThirdCountriesTransfer",
+      "name": "ThirdCountriesTransfers",
       "label": "Third country transfer",
       "superClass": [ "Element" ],
       "properties": [

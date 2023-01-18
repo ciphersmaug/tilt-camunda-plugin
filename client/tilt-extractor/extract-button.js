@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import {getPropertyFromModdle } from '../tilt-properties/props/moddle-property-io';
 import TILT from "../descriptors/tilt.json"
+import { buildTiltDocument, cleanPropertyThroughSchema, filterObjectsWithTiltProperty, getBusinessObjects } from './extractor';
 
 export default class ExtractButton extends PureComponent {
   constructor() {
@@ -93,18 +94,19 @@ export default class ExtractButton extends PureComponent {
     debugger;
     var x = getPropertyFromModdle("tilt:Meta",moddle);
   }
-  saveFile2(){
+
+  saveFile(){
+    var object = buildTiltDocument(window.bpmnjsInjector.get("canvas"))
     debugger;
-    var object = {Hello: "World"}
     var json_string = JSON.stringify(object, undefined, 2);
     var link = document.createElement('a');
-    link.download = 'data.json';
-    var blob = new Blob([json_string], {type: 'text/plain'});
+    link.download = 'NewTiltDocument.tilt.json';
+    var blob = new Blob([json_string], {type: 'application/json'});
     link.href = window.URL.createObjectURL(blob);
     link.click();
   }
 
-  async saveFile(){
+  async saveFile2(){
     const opts = {
       suggestedName: "NewProcessTiltDocument.tilt.json",
       types: [{
@@ -138,7 +140,7 @@ export default class ExtractButton extends PureComponent {
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
-          onClick={ () =>  this.saveFile2()}>
+          onClick={ () =>  this.saveFile()}>
           Click to create a TILT object...
         </button>
       </Fill>

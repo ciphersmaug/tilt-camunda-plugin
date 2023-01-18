@@ -42,7 +42,6 @@
     "bpmn-js-properties-panel": "^1.15.0",
     "camunda-bpmn-js-behaviors": "^0.4.0",
     "diagram-js": "^11.4.3",
-    "install": "^0.13.0",
     "npm": "^9.3.0",
     "uuid": "^9.0.0"
   }
