@@ -42,8 +42,9 @@ export default class TiltPropertiesExtensionProvider {
       }else if(is(element, 'bpmn:StartEvent')) {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:Meta",{},null),
           new PropertyBlueprint("tilt:Controller",{representative:[]},null)
-          ],[1]));
+          ],[1,1]));
       
       }else if(is(element, 'bpmn:DataObjectReference')) {
       

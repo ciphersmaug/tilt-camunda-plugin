@@ -1,12 +1,13 @@
 import React, { Fragment, PureComponent } from 'camunda-modeler-plugin-helpers/react';
 import { Fill } from 'camunda-modeler-plugin-helpers/components';
+import tiltIcon from "../../assets/tilt.svg"
 const { getBusinessObject } = require('bpmn-js/lib/util/ModelUtil');
 import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
 import {getPropertyFromModdle } from '../tilt-properties/props/moddle-property-io';
 import TILT from "../descriptors/tilt.json"
-import { buildTiltDocument, cleanPropertyThroughSchema, filterObjectsWithTiltProperty, getBusinessObjects } from './extractor';
+import { buildTiltDocument } from './extractor';
 
 export default class ExtractButton extends PureComponent {
   constructor() {
@@ -40,7 +41,7 @@ export default class ExtractButton extends PureComponent {
   
     if(element.hasOwnProperty("$type") && element.$type.startsWith("tilt")){
       tilt_properties.push(element);
-      console.log(element)
+      //console.log(element)
       return tilt_properties;
   
     }
@@ -136,15 +137,15 @@ export default class ExtractButton extends PureComponent {
   render() {
     // we can use fills to hook React components into certain places of the UI
     return <Fragment>
-      <Fill slot="status-bar__app" group="1_tilt_save">
+      <Fill slot="status-bar__file" group="1_tilt_save">
         <button
           ref={ this._buttonRef }
           className={ classNames('tilt-btn','btn') }
           onClick={ () =>  this.saveFile()}>
-          Click to create a TILT object...
+          TILT
         </button>
       </Fill>
-    </Fragment>;onClick
+    </Fragment>;
   }
 }
 

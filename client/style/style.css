@@ -1,0 +1,15 @@
+.filter-green svg{
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+.filter-error svg{
+    filter: invert(34%) sepia(86%) saturate(2067%) hue-rotate(342deg) brightness(88%) contrast(99%);
+}
+.filter-ok svg{
+    filter: invert(41%) sepia(55%) saturate(382%) hue-rotate(128deg) brightness(101%) contrast(85%);
+}
+.filter-warn svg{
+    filter: invert(81%) sepia(9%) saturate(1984%) hue-rotate(1deg) brightness(94%) contrast(86%);;
+}
+.filter-tilt svg{
+    filter: invert(21%) sepia(85%) saturate(5617%) hue-rotate(269deg) brightness(93%) contrast(91%);
+}

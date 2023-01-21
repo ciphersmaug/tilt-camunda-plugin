@@ -16,8 +16,9 @@ function TiltExtractor(injector, eventBus, bpmnRules, editorActions, canvas, com
   
   editorActions.register({
     extractTiltFromBpmn: function() {
-      let bo = getBusinessObject(canvas.getRootElement())
-      self.extract();
+      //let bo = getBusinessObject(canvas.getRootElement())
+      //self.extract();
+      debugger;
     }
   });
 }

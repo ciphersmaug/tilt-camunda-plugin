@@ -15,7 +15,7 @@ module.exports = function() {
         if (is(node, 'bpmn:Process')) {
             check_passed = test_if_properties_exists(node,tilt_type,propertiesToTest)
             if(!check_passed){
-                reporter.report(node.id, "The business process needs to contain all required TILT meta fields.");
+                reporter.report(node.id, "[ TILT ]\tThe business process needs to contain all required TILT meta fields.");
             }
         }
     }

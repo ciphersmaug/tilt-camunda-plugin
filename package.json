@@ -43,6 +43,7 @@
     "camunda-bpmn-js-behaviors": "^0.4.0",
     "diagram-js": "^11.4.3",
     "npm": "^9.3.0",
+    "raw-loader": "^4.0.2",
     "uuid": "^9.0.0"
   }
 }

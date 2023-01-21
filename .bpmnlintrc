@@ -3,8 +3,8 @@
     "plugin:custom/recommended"
   ],
   "rules": {
-    "custom/process-must-contain-tilt-meta": "off",
-    "custom/controller-must-be-completely-filled": "off",
+    "custom/process-must-contain-tilt-meta": "error",
+    "custom/controller-must-be-completely-filled": "error",
     "label-required": "off"
   }
 }

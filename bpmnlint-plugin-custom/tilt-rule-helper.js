@@ -10,6 +10,17 @@ export function test_if_properties_exists(node, tilt_type, propertiesToTest){
     };
     return false;
 }
+
+export function test_if_is_tilt(node, tilt_type){
+    if ("extensionElements" in node){
+        for (let i = 0; i < node["extensionElements"]["values"].length; i++) {
+            if (node["extensionElements"]["values"][i].$type == tilt_type){
+                return true;
+            }
+          }
+    };
+    return false;
+}
 export function test(){
     return false;
 }

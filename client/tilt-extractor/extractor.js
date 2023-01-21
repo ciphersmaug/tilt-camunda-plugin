@@ -16,7 +16,7 @@ export function filterObjectsWithTiltProperty(businessObjects,tiltProperty){
         extensionElements = businessObjects[bo].get("extensionElements");
         if(extensionElements){
             if(!extensionElements.hasOwnProperty("values")){
-                console.log(extensionElements)
+                //console.log(extensionElements)
                 continue;
             }
             tiltProperties.push(...extensionElements.values.filter(e => e.$type == tiltProperty))
@@ -85,7 +85,7 @@ export function getSchemaProperty(propertyName, tiltSchema = schema){
             }
         }
     }
-    console.log(propertyName)
+    //console.log(propertyName)
     return {};
 }
 

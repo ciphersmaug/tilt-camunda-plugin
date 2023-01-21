@@ -3,5 +3,6 @@
 module.exports = {
   name: `TILT Extension (Development Build)`,
   script: './dist/client.js',
-  menu: './menu/menu.js'
+  menu: './menu/menu.js',
+  style: "./client/style/style.css"
 };

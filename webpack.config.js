@@ -14,6 +14,10 @@ module.exports = {
       {
         test: /\.bpmnlintrc$/i,
         use: 'bpmnlint-loader',
+      },
+      { 
+        test: /\.svg$/, 
+        loader: 'raw-loader' 
       }
     ]
   },
