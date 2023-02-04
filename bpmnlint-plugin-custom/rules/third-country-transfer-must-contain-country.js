@@ -10,8 +10,8 @@ const {
 module.exports = function() {
     function check(node, reporter) {
         let check_passed  = false;
-        let tilt_type = "tilt:Controller";
-        let propertiesToTest = ["name"];
+        let tilt_type = "tilt:ThirdCountryTransfers";
+        let propertiesToTest = ["country"];
         if (getTiltFromElementIfExists(node, tilt_type)) {
             check_passed = test_if_properties_exists(node,tilt_type,propertiesToTest)
             if(!check_passed){

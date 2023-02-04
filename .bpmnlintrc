@@ -4,7 +4,7 @@
   ],
   "rules": {
     "custom/process-must-contain-tilt-meta": "error",
-    "custom/controller-must-be-completely-filled": "error",
+    "custom/controller-must-be-completely-filled": "warn",
     "label-required": "off"
   }
 }

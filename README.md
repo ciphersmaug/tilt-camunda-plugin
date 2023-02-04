@@ -83,6 +83,11 @@ This TILT extension for the Camunda BPMN modeler currently supports Camunda Plat
     ```
 
 3. Place the build into the Camunda Modeler plug-in directory
+    MacOs:
+    ```
+    '/Applications/Camunda Modeler.app/Contents/MacOS/resources/plugins/'
+    '/Users/${username}/Library/Application Support/camunda-modeler/resources/plugins'
+    ```
 
 4. Execute the Camunda Modeler
 

@@ -1,4 +1,4 @@
-import { is } from 'bpmn-js/lib/util/ModelUtil';
+import { getBusinessObject, is } from 'bpmn-js/lib/util/ModelUtil';
 import PropertyBlueprint from './property-blueprint';
 import { createTiltPropertiesGroup } from './props/tilt-property-groups';
 
@@ -18,33 +18,25 @@ export default class TiltPropertiesExtensionProvider {
     return groups => {
       groups = groups.slice();
 
-      if(is(element, 'bpmn:Process')) {
-      
-        groups.push(createTiltPropertiesGroup(element,this._injector,[
-          new PropertyBlueprint("tilt:Meta",{},null),
-          new PropertyBlueprint("tilt:Controller",{representative:[]},null),
-          new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)
-          ],[1,1,1]));
-      
-      }else if(is(element,'bpmn:Collaboration')) {
-      
-        groups.push(createTiltPropertiesGroup(element,this._injector,[
-          new PropertyBlueprint("tilt:Meta",{},null)
-          ],[1]));
-      
-      }else if(is(element, 'bpmn:Participant') || is(element,'bpmn:Lane')) {
+      if(is(element, 'bpmn:Participant') || is(element,'bpmn:Lane')) {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:Controller",{representative:[]},null),
           new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)
           ],[1,1]));
       
-      }else if(is(element, 'bpmn:StartEvent')) {
-      
+      }else if(getBusinessObject(element).$type.includes("StartEvent")) {
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:Meta",{},null),
-          new PropertyBlueprint("tilt:Controller",{representative:[]},null)
-          ],[1,1]));
+          new PropertyBlueprint("tilt:Controller",{representative:[]},null),
+          new PropertyBlueprint("tilt:AccessAndDataPortability",{},null),
+          new PropertyBlueprint("tilt:RightToInform",{},null),
+          new PropertyBlueprint("tilt:RightToRectificationOrDeletion",{},null),
+          new PropertyBlueprint("tilt:RightToDataPortability",{},null),
+          new PropertyBlueprint("tilt:RightToWithdrawConsent",{},null),
+          new PropertyBlueprint("tilt:RightToComplain",{},null),
+          new PropertyBlueprint("tilt:ChangesOfPurpose",{},null)
+          ],[1,1,1,1,1,1,1,1,1]));
       
       }else if(is(element, 'bpmn:DataObjectReference')) {
       
@@ -58,7 +50,7 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:ThirdCountryTransfers",{},null)
           ],[1]));
       
-      }else if(is(element, 'bpmn:ExclusiveGateway')) {
+      }else if(getBusinessObject(element).$type.includes("Gateway")) {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:AutomatedDecisionMaking",{},null)

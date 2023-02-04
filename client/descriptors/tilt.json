@@ -821,6 +821,507 @@
           "errMsg": ""
         }
       ]
+    },
+    {
+      "name": "AccessAndDataPortability",
+      "label": "Access and data portability",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "The information is subject to the requirements of Art. 20 (right to data portability) GDPR.",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the requirements according to Art. 20 GDPR.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL (reference) where the data is taken from.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        },
+        {
+          "name": "administrativeFee",
+          "isMany": true,
+          "type": "AdministrativeFee",
+          "label": "Administrative fee",
+          "max": 1
+        },
+        {
+          "name": "dataFormats",
+          "isMany": true,
+          "type": "DataFormats",
+          "label": "Data formats",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "IdentificationEvidences",
+      "label": "Identification evidence",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "item",
+          "isAttr": true,
+          "type": "String",
+          "label": "ID evidence",
+          "description": "Identification evidence",
+          "regex": "",
+          "errMsg": ""
+        }
+      ]
+    },
+    {
+      "name": "AdministrativeFee",
+      "label": "Administrative fee",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "amount",
+          "isAttr": true,
+          "type": "Integer",
+          "label": "Amount",
+          "description": "The amount of money to be paid for a copy.",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "currency",
+          "isAttr": true,
+          "type": "String",
+          "label": "Currency",
+          "description": "The currency in which the amount of money for one copy has to be provided acc. to ISO 4217.",
+          "regex": "^[A-Z]{3}$",
+          "errMsg": "Must be exactly 3 characters long"
+        }
+      ]
+    },
+    {
+      "name": "DataFormats",
+      "label": "Data format",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "item",
+          "isAttr": true,
+          "type": "String",
+          "label": "Format",
+          "description": "An explanation about the data format(s) the data is provided in.",
+          "regex": "^json|xml$",
+          "errMsg": "Must be either 'json' or 'xml'"
+        }
+      ]
+    },
+    {
+      "name": "RightToInform",
+      "label": "Right to inform",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Possibility available?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL to an online portal.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "RightToRectificationOrDeletion",
+      "label": "Right to rectification or deletion",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Possibility available?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL to an online portal.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "RightToDataPortability",
+      "label": "Right to data portability",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Possibility available?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL to an online portal.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "RightToWithdrawConsent",
+      "label": "Right to withdraw consent",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Possibility available?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL to an online portal.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "RightToComplain",
+      "label": "Right to complain",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "available",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Available",
+          "description": "Possibility available?",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "url",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL to an online portal.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Contact email address",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "identificationEvidences",
+          "isMany": true,
+          "type": "IdentificationEvidences",
+          "label": "ID evidences",
+          "max": -1
+        },
+        {
+          "name": "supervisoryAuthority",
+          "isMany": true,
+          "type": "SupervisoryAuthority",
+          "label": "Supervisory authority",
+          "max": 1
+        }
+      ]
+    },
+    {
+      "name": "SupervisoryAuthority",
+      "label": "Supervisory authority",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String",
+          "label": "Name",
+          "description": "Name of the supervisory authority.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "address",
+          "isAttr": true,
+          "type": "String",
+          "label": "Address",
+          "description": "Adress of the supervisory authority.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "country",
+          "isAttr": true,
+          "type": "String",
+          "label": "Country",
+          "description": "Country of the supervisory authority.",
+          "regex": "^[A-Z][A-Z]$",
+          "errMsg": "All country codes follow the established ones ISO 3166 country abbreviation standard."
+        },
+        {
+          "name": "email",
+          "isAttr": true,
+          "type": "String",
+          "label": "E-Mail",
+          "description": "Email adress of the supervisory authority.",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        },
+        {
+          "name": "phone",
+          "isAttr": true,
+          "type": "String",
+          "label": "Phone",
+          "description": "Phone number of the supervisory authority.",
+          "regex": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\.\/0-9]*$",
+          "errMsg": "Must be a valid phone number such as: '+49 151 1234 5678'"
+        }
+      ]
+    },
+    {
+      "name": "ChangesOfPurpose",
+      "label": "Changes of Purpose",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "changesOfPurposeItem",
+          "isMany": true,
+          "type": "ChangesOfPurposeItem",
+          "label": "Changes of Purpose",
+          "max": -1
+        }
+      ]
+    },
+    {
+      "name": "ChangesOfPurposeItem",
+      "label": "Change of Purpose",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "description",
+          "isAttr": true,
+          "type": "String",
+          "label": "Description",
+          "description": "Description of the right.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "affectedDataCategories",
+          "isMany": true,
+          "type": "AffectedDataCategories",
+          "label": "Affected Data Categories",
+          "max": -1
+        },
+        {
+          "name": "plannedDateOfChange",
+          "isAttr": true,
+          "type": "String",
+          "label": "Planned Date Of Change",
+          "description": "Specify the planned date to the changes as ISO 8601 string.",
+          "regex": "^([\\+-]?\\d{4}(?!\\d{2}\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+          "errMsg": "This field can be anything. It is not required."
+        },
+        {
+          "name": "urlOfNewVersion",
+          "isAttr": true,
+          "type": "String",
+          "label": "URL",
+          "description": "URL points to a document of the same as this one. That creates a chain of information requirements for seamless recognition of transparency information even over a longer period of time.",
+          "regex": "^[\\s\\S]+$",
+          "errMsg": "This field can be anything. It is not required."
+        }
+      ]
+    },
+    {
+      "name": "AffectedDataCategories",
+      "label": "Affected Data Category",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "value",
+          "isAttr": true,
+          "type": "String",
+          "label": "Value",
+          "description": "",
+          "regex": "^(.|\\s)*\\S(.|\\s)*$",
+          "errMsg": "This field must have a value."
+        }
+      ]
     }
   ],
   "emumerations": [],

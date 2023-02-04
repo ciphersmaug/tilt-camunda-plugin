@@ -91,7 +91,7 @@ export function getSchemaProperty(propertyName, tiltSchema = schema){
 
 function extractSingleField(singleArray){
     if(!((singleArray instanceof Array) && (singleArray.length == 1))){
-        alert(`TILT Extractor error on ${singleArray[0]} field.`)
+        alert(`TILT Error: ${singleArray[0].$type} must exist only once. Skipping this TILT-Field...`)
         debugger;
         return {};
     }
@@ -99,7 +99,7 @@ function extractSingleField(singleArray){
 }
 function extractMultipleFields(multipleArray){
     if(!(multipleArray instanceof Array)){
-        alert(`TILT Extractor error on ${multipleArray[0]} field.`)
+        alert(`TILT Extractor error on ${multipleArray[0].$type} field.`)
         debugger;
         return {};
     }

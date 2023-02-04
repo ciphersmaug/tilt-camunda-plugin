@@ -1,15 +1,17 @@
 import tiltIcon from "../../assets/tilt.svg";
-import tiltControllerIcon from "../../assets/controller.svg";
+import tiltControllerIcon from "../../assets/crown-solid.svg"//controller.svg";
 import tiltDataDisclosedIcon from "../../assets/datadisclosed.svg";
 import flagIcon from "../../assets/flag.svg";
-import tiltDataProtectionOfficerIcon from "../../assets/protection.svg";
+import tiltDataProtectionOfficerIcon from "../../assets/umbrella-solid.svg"//protection.svg";
 import tiltRepresentativeIcon from "../../assets/representative.svg"
 import { getBusinessObject } from "bpmn-js/lib/util/ModelUtil";
 
 const events = [
   'commandStack.element.updateModdleProperties.postExecuted',
-  'shape.added'
+  //'shape.added',
+  'bpmnElement.added'
 ]
+
 const toggleEvents = ['canvas.viewbox.changed']
 
 function addTiltOverlays(overlays,e){
@@ -18,6 +20,7 @@ function addTiltOverlays(overlays,e){
   const extensionElements = bo.get("extensionElements");
 
   // Discover all existing Tilt Extensions
+  var country = null;
   var arr = [];
   if(extensionElements){
     for(let v in extensionElements.values){
@@ -33,7 +36,6 @@ function addTiltOverlays(overlays,e){
   // Remove existing Overlays
   const currentO = overlays.get({element: element.id});
   for(let o in currentO){
-    debugger;
     overlays.remove(currentO[o].id)
   }
 
@@ -53,16 +55,8 @@ function addTiltOverlays(overlays,e){
           addOverlay(overlays,element.id,tiltRepresentativeIcon);
           break;
         case "tilt:ThirdCountryTransfers":
-          //let deltaX = Math.abs(element.waypoints[0].x - element.waypoints[element.waypoints.length-1].x);
-          //let deltaY = Math.abs(element.waypoints[0].y - element.waypoints[element.waypoints.length-1].y);
-           
-          overlays.add(`${element.id}`, {
-            html: `<div class="filter-error">${flagIcon}</div>`,
-            position: {
-              top: 10,//deltaY/2,
-              left: 10//deltaX/2
-            }
-          });
+          let countryCode = extensionElements.values[0].country;
+          addOverlay(overlays,element.id,countryCode, "filter-error", element.waypoints)
           break;
         default:
           addOverlay(overlays,element.id,tiltIcon)
@@ -72,15 +66,51 @@ function addTiltOverlays(overlays,e){
   }
   return {}
 }
+function getFlagEmoji(countryCode) {
+  if(!countryCode){
+    countryCode = "un"
+  }
+  const codePoints = countryCode
+  .toUpperCase()
+  .split('')
+  .map(char =>  127397 + char.charCodeAt());
+  return String.fromCodePoint(...codePoints);
+}
 
-function addOverlay(overlays,id,icon, c = "filter-tilt"){
+function getCenter(waypoints){
+  let deltaX = Math.abs(waypoints[0].x - waypoints[waypoints.length-1].x);
+  let deltaY = Math.abs(waypoints[0].y - waypoints[waypoints.length-1].y);
+  return {
+    left: deltaX/2-15,
+    top: deltaY/2-15
+  }
+}
+
+
+function addOverlay(overlays,id,icon, c = "filter-tilt", waypoints = null){
+  if(id.includes("label")){
+    return;
+  }
+
   let g = overlays.get({element: id})
+  if(g.length >= 3){
+    return
+  }
+  let p = {
+    left: -5+g.length * 24,
+    top: -30
+  }
+  let html = `<div class="${c}">${icon}</div>`;
+
+  if(waypoints){
+
+    p = getCenter(waypoints)
+    html = `<div class="${c}"><font size="+2">${getFlagEmoji(icon)}</font></div>`;
+  }
+
   overlays.add(`${id}`, {
-    html: `<div class="${c}">${icon}</div>`,
-    position: {
-      left: -5+g.length * 24,
-      top: -30
-    }
+    html: html,
+    position: p
   });
 }
 
@@ -98,7 +128,6 @@ export default class TiltOverlayProvider {
       //this._overlays = overlays;
       window.toggleTilt = true;
       this.addEventListener(eventBus,events,overlays);
-
       //Whenever there is a viebox change we need to reactivate the toggle.
       toggleEvents.forEach(function(event) {
         eventBus.on(event, function(e) {

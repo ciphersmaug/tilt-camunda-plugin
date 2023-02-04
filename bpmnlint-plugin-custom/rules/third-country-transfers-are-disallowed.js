@@ -8,7 +8,6 @@ module.exports = function() {
     function check(node, reporter) {
         let check_passed  = false;
         if (is(node, 'bpmn:MessageFlow')) {
-            debugger;
             check_passed = !test_if_is_tilt(node,"tilt:ThirdCountryTransfers")
             if(!check_passed){
                 reporter.report(node.id, "[ TILT ]\tThird country transfer detected!");
