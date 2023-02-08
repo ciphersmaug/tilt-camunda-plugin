@@ -30,7 +30,7 @@ export function addFactory(element, injector, blueprint_array = []){
     var businessObject = getBusinessObject(element);
     var extensionElements = businessObject.get('extensionElements');
     let newElement;
-    debugger;
+    //debugger;
     if ((!extensionElements && !property_blueprint.parent_element) || (!extensionElements && property_blueprint.parent_element != null && !property_blueprint.parent_element.$type.startsWith("bpmn"))) {
       // Ensure that the ExtensionElements Property exists if it is not attached to a parent
       extensionElements =  createElement('bpmn:ExtensionElements', {values : []}, businessObject, bpmnFactory);
@@ -69,7 +69,7 @@ export function removeFactory(element, property, modeling) {
       });
 
     }else{
-      debugger;
+      //debugger;
       let update = {};
       let property_name = property.$type.split(":")[1];
       property_name = property_name.charAt(0).toLowerCase() + property_name.slice(1);

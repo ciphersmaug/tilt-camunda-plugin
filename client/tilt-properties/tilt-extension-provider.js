@@ -26,6 +26,12 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:Sources",{},null),
           ],[1,1,1]));
       
+      }else if(is(element, 'bpmn:Lane')){// || is(element,'bpmn:Lane')) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:DataProtectionOfficer",{},null)
+          ],[1]));
+      
       }else if(getBusinessObject(element).$type.includes("StartEvent")) {
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:Meta",{},null),

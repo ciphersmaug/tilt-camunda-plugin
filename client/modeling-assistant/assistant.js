@@ -108,7 +108,6 @@ export function getPropertyOfObject(element,objectType,propertyName){
 export function modifyCountryTransfer(element, injector){
   var bo = getBusinessObject(element)
   if(bo && "$type" in bo && bo.$type == "bpmn:MessageFlow"){
-    debugger;
     let sourceCountry = getPropertyOfObject(element.source.parent,"tilt:Controller","country");
     let targetCountry = getPropertyOfObject(element.target.parent,"tilt:Controller","country");
     if(sourceCountry != targetCountry && sourceCountry != null && targetCountry != null){
@@ -137,7 +136,6 @@ export default class Assistant {
       });
       eventBus.on('commandStack.element.updateModdleProperties.postExecuted', function(e) {
         if(e.context.oldProperties.hasOwnProperty("country") && e.context.moddleElement.$type == "tilt:Controller"){
-          debugger;
           var element = e.context.element
           var foundElements = findElements(element,"bpmn:MessageFlow")
           for(let i in foundElements){

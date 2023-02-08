@@ -12,6 +12,15 @@
       "superClass": [ "Element" ],
       "properties": [
         {
+          "name": "main",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Main Meta Information",
+          "description": "Is this the primary TILT Element that should also appear in the extracted TILT-Document? ",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
           "name": "name",
           "isAttr": true,
           "type": "String",
@@ -81,6 +90,15 @@
       "label": "Controller information",
       "superClass": [ "Element" ],
       "properties": [
+        {
+          "name": "main",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Main Controller",
+          "description": "Is this the primary TILT Element that should also appear in the extracted TILT-Document? ",
+          "regex": "",
+          "errMsg": ""
+        },
         {
           "name": "name",
           "isAttr": true,
@@ -166,6 +184,15 @@
       "superClass": [ "Element" ],
       "properties": [
         {
+          "name": "main",
+          "isAttr": true,
+          "type": "Boolean",
+          "label": "Main DPO",
+          "description": "Is this the primary TILT Element that should also appear in the extracted TILT-Document? ",
+          "regex": "",
+          "errMsg": ""
+        },
+        {
           "name": "name",
           "isAttr": true,
           "type": "String",
@@ -218,7 +245,7 @@
       "superClass": [ "Element" ],
       "properties": [
         {
-          "name": "id",
+          "name": "_id",
           "isAttr": true,
           "type": "String",
           "label": "ID",

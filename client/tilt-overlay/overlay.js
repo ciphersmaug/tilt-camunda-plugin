@@ -2,8 +2,13 @@ import tiltIcon from "../../assets/tilt.svg";
 import tiltControllerIcon from "../../assets/crown-solid.svg"//controller.svg";
 import tiltDataDisclosedIcon from "../../assets/datadisclosed.svg";
 import flagIcon from "../../assets/flag.svg";
+import tiltSourceIcon from "../../assets/compass-regular.svg"
+import tiltAccess from "../../assets/accessible-icon.svg"
+import tiltRight from "../../assets/section-solid.svg"
+import tiltChange from "../../assets/bolt-solid.svg"
 import tiltDataProtectionOfficerIcon from "../../assets/umbrella-solid.svg"//protection.svg";
 import tiltRepresentativeIcon from "../../assets/representative.svg"
+import tiltAuto from "../../assets/robot-solid.svg"
 import { getBusinessObject } from "bpmn-js/lib/util/ModelUtil";
 
 const events = [
@@ -58,8 +63,25 @@ function addTiltOverlays(overlays,e){
           let countryCode = extensionElements.values[0].country;
           addOverlay(overlays,element.id,countryCode, "filter-error", element.waypoints)
           break;
+        case "tilt:Sources":
+          addOverlay(overlays,element.id,tiltSourceIcon);
+          break;
+        case "tilt:AutomatedDecisionMaking":
+          addOverlay(overlays,element.id,tiltAuto);
+          break;
+        case "tilt:ChangesOfPurpose":
+          addOverlay(overlays,element.id,tiltChange);
+          break;
+        case "tilt:AccessAndDataPortability":
+          addOverlay(overlays,element.id,tiltAccess);
+          break;
         default:
-          addOverlay(overlays,element.id,tiltIcon)
+          if (arr[a].includes("Right")){
+            addOverlay(overlays,element.id,tiltRight)
+          }else{
+            addOverlay(overlays,element.id,tiltIcon)
+          }
+          
           break;
           // code block
       }

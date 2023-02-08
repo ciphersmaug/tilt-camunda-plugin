@@ -9,7 +9,7 @@ export function getBusinessObjectsFromCanvas(canvas){
     }
     return businessObjects;
 }
-export function filterObjectsWithTiltProperty(businessObjects,tiltProperty){
+export function filterObjectsWithTiltProperty(businessObjects,tiltProperty,maxOne = false){
     let tiltProperties = [];
     let extensionElements;
     for(let bo in businessObjects){
@@ -22,9 +22,26 @@ export function filterObjectsWithTiltProperty(businessObjects,tiltProperty){
             tiltProperties.push(...extensionElements.values.filter(e => e.$type == tiltProperty))
         }
     }
+    
+    if(maxOne && tiltProperties.length > 1){
+        for(let i in tiltProperties){
+            if(tiltProperties[i].hasOwnProperty("main") && tiltProperties[i].main){
+                return [tiltProperties[i]];
+            }
+        }
+        alert(`TILT Error: ${tiltProperties[0].$type} must exists exactly once. Skipping this TILT-Field.`)
+        return [];
+    }
     return tiltProperties;
 }
 export function cleanPropertyThroughSchema(tiltProperty,tiltSchema = schema){
+    if(Array.isArray(tiltProperty)){
+        let l = [];
+        for(let a in tiltProperty){
+            l.push(cleanPropertyThroughSchema(tiltProperty[a],tiltSchema))
+        }
+        return l
+    }
     var propertyName = tiltProperty.$type.split(":")[1];
     propertyName = propertyName.charAt(0).toLowerCase() + propertyName.slice(1);
     var schemaProperties = getSchemaProperty(propertyName,tiltSchema).properties;
@@ -89,36 +106,41 @@ export function getSchemaProperty(propertyName, tiltSchema = schema){
     return {};
 }
 
-function extractSingleField(singleArray){
-    if(!((singleArray instanceof Array) && (singleArray.length == 1))){
-        alert(`TILT Error: ${singleArray[0].$type} must exist only once. Skipping this TILT-Field...`)
-        debugger;
-        return {};
-    }
-    return cleanPropertyThroughSchema(singleArray[0]);
-}
-function extractMultipleFields(multipleArray){
-    if(!(multipleArray instanceof Array)){
-        alert(`TILT Extractor error on ${multipleArray[0].$type} field.`)
-        debugger;
-        return {};
-    }
-    var r = [];
-    for(let a in multipleArray){
-        r.push(cleanPropertyThroughSchema(multipleArray[a]))
-    }
-    return r;
-}
-
 export function buildTiltDocument(canvas){
     const businessObjects = getBusinessObjectsFromCanvas(canvas);
+    const fieldsToExtract = {
+        "tilt:Meta":true,
+        "tilt:Controller":true,
+        "tilt:DataProtectionOfficer":true,
+        "tilt:DataDisclosed":false,
+        "tilt:ThirdCountryTransfers":false,
+        "tilt:AccessAndDataPortability":true,
+        "tilt:Sources":false,
+        "tilt:RightToInformation":true,
+        "tilt:RightToRectificationOrDeletion":true,
+        "tilt:RightToDataPortability":true,
+        "tilt:RightToWithdrawConsent":true,
+        "tilt:RightToComplain":true,
+        "tilt:AutomatedDecisionMaking":false,
+        "tilt:ChangesOfPurpose":true
+    }
     var tiltDocument = {};
-    tiltDocument["meta"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:Meta"));
-    tiltDocument["controller"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:Controller"));
-    tiltDocument["dataProtectionOfficer"] = extractSingleField(filterObjectsWithTiltProperty(businessObjects,"tilt:DataProtectionOfficer"));
-    tiltDocument["dataDisclosed"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:DataDisclosed"));
-    tiltDocument["thirdCountryTransfers"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:ThirdCountryTransfers"));
-    tiltDocument["sources"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:Sources"));
-    tiltDocument["automatedDecisionMaking"] = extractMultipleFields(filterObjectsWithTiltProperty(businessObjects,"tilt:AutomatedDecisionMaking"));
+    for(let i in fieldsToExtract){
+        tiltDocument[i] = cleanPropertyThroughSchema(
+            filterObjectsWithTiltProperty(
+                businessObjects,
+                i,
+                fieldsToExtract[i]));
+    }
     return tiltDocument;
 }
+
+export function saveFile(canvas){
+    var object = buildTiltDocument(canvas)
+    var json_string = JSON.stringify(object, undefined, 2);
+    var link = document.createElement('a');
+    link.download = 'NewTiltDocument.tilt.json';
+    var blob = new Blob([json_string], {type: 'application/json'});
+    link.href = window.URL.createObjectURL(blob);
+    link.click();
+  }

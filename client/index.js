@@ -10,7 +10,7 @@ import ExtractButton from './tilt-extractor/extract-button';
 import tiltOverlayProvider from './tilt-overlay'
 import Assistant from './modeling-assistant';
 
-//var tiltExtractor = require('./tilt-extractor/tilt-extractor');
+import ExtractorMenu from './tilt-extractor/extractor-menu';
 
 registerPlatformBpmnJSPlugin(tiltPropertiesExtensionModule);
 registerBpmnJSModdleExtension(tiltModdleDescriptor);
@@ -22,6 +22,5 @@ registerPlatformBpmnJSPlugin(Assistant)
 registerClientPlugin({ config, resolver }, 'lintRules.cloud-bpmn');
 registerClientPlugin({ config, resolver }, 'lintRules.bpmn');
 
-//registerBpmnJSPlugin(tiltExtractor);
-
+registerBpmnJSPlugin(ExtractorMenu);
 registerClientExtension(ExtractButton);

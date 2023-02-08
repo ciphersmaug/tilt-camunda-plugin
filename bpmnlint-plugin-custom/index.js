@@ -4,7 +4,7 @@ module.exports = {
         rules: {
           'process-must-contain-tilt-meta': 'off',
           'third-country-transfers-are-disallowed':'off',
-          'controller-must-exist-once-and-only-once': 'error',
+          'fields-must-exist-once-and-only-once': 'error',
           'controller-must-be-completely-filled':'warn',
           'third-country-transfer-must-contain-country':'error'
         }

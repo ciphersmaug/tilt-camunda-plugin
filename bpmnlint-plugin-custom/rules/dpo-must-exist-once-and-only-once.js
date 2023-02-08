@@ -3,7 +3,7 @@ const {getTiltFromElementIfExists, tiltMustExistOnlyOnce} = require("../tilt-rul
 module.exports = function() {
     function check(node, reporter) {
         let check_passed  = false;
-        let tilt_type = "tilt:Controller";
+        let tilt_type = "tilt:DataProtectionOfficer";
         if (getTiltFromElementIfExists(node, tilt_type)) {
             check_passed = tiltMustExistOnlyOnce(tilt_type)
             if(!check_passed){
