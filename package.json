@@ -42,7 +42,7 @@
     "bpmn-js-properties-panel": "^1.15.0",
     "camunda-bpmn-js-behaviors": "^0.4.0",
     "diagram-js": "^11.4.3",
-    "npm": "^9.3.0",
+    "npm": "^9.4.1",
     "raw-loader": "^4.0.2",
     "uuid": "^9.0.0"
   }

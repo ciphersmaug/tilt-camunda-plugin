@@ -8,12 +8,14 @@ import tiltModdleDescriptor from "./descriptors/tilt";
 
 import ExtractButton from './tilt-extractor/extract-button';
 import tiltOverlayProvider from './tilt-overlay'
+import Assistant from './modeling-assistant';
 
 //var tiltExtractor = require('./tilt-extractor/tilt-extractor');
 
 registerPlatformBpmnJSPlugin(tiltPropertiesExtensionModule);
 registerBpmnJSModdleExtension(tiltModdleDescriptor);
-registerPlatformBpmnJSPlugin(tiltOverlayProvider)
+registerPlatformBpmnJSPlugin(tiltOverlayProvider);
+registerPlatformBpmnJSPlugin(Assistant)
 
 
 //provide { config, resolver } as a `lintRules.${tabType}` plug-in

@@ -6,19 +6,25 @@
     </bpmn:extensionElements>
     <bpmn:participant id="Participant_0whnztp" processRef="Process_123">
       <bpmn:extensionElements>
-        <tilt:controller />
+        <tilt:controller country="US" />
         <tilt:dataProtectionOfficer />
       </bpmn:extensionElements>
     </bpmn:participant>
-    <bpmn:participant id="Participant_1pfiy8g" processRef="Process_0exrbje" />
+    <bpmn:participant id="Participant_1pfiy8g" processRef="Process_0exrbje">
+      <bpmn:extensionElements>
+        <tilt:dataProtectionOfficer />
+        <tilt:sources />
+        <tilt:controller country="GB" />
+      </bpmn:extensionElements>
+    </bpmn:participant>
     <bpmn:messageFlow id="Flow_0xdpgk8" sourceRef="Event_1y5aqpw" targetRef="Event_0rt9yfn">
       <bpmn:extensionElements>
-        <tilt:thirdCountryTransfers country="DE" />
+        <tilt:thirdCountryTransfers country="US" />
       </bpmn:extensionElements>
     </bpmn:messageFlow>
-    <bpmn:messageFlow id="Flow_1jx4qno" sourceRef="Event_1lvbre8" targetRef="Event_0wfbdsl">
+    <bpmn:messageFlow id="Flow_1n2meip" sourceRef="Event_1lvbre8" targetRef="Event_0wfbdsl">
       <bpmn:extensionElements>
-        <tilt:thirdCountryTransfers country="DE" />
+        <tilt:thirdCountryTransfers country="GB" />
       </bpmn:extensionElements>
     </bpmn:messageFlow>
   </bpmn:collaboration>
@@ -126,6 +132,11 @@
   <bpmn:process id="Process_0exrbje" isExecutable="false">
     <bpmn:laneSet id="LaneSet_1nn7121">
       <bpmn:lane id="Lane_1ncxdp2">
+        <bpmn:extensionElements>
+          <tilt:controller country="DE" />
+          <tilt:dataProtectionOfficer />
+          <tilt:sources />
+        </bpmn:extensionElements>
         <bpmn:flowNodeRef>Activity_0dftqvn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1y5aqpw</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0wfbdsl</bpmn:flowNodeRef>
@@ -283,7 +294,7 @@
         <di:waypoint x="1040" y="155" />
         <di:waypoint x="1040" y="272" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1jx4qno_di" bpmnElement="Flow_1jx4qno">
+      <bpmndi:BPMNEdge id="Flow_1n2meip_di" bpmnElement="Flow_1n2meip">
         <di:waypoint x="780" y="272" />
         <di:waypoint x="780" y="158" />
       </bpmndi:BPMNEdge>
