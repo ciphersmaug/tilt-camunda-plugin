@@ -16,7 +16,6 @@ module.exports = function() {
     function check(node, reporter) {
         let check_passed  = false;
         for(let x in tiltToExistOnce){
-            debugger;
             if (getTiltFromElementIfExists(node, tiltToExistOnce[x])) {
                 check_passed = tiltMustExistOnlyOnce(tiltToExistOnce[x])
                 if(!check_passed){
