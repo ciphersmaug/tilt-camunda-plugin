@@ -77,6 +77,7 @@ export default class TiltPropertiesExtensionProvider {
       }else{
       
         var newGroup = createTiltPropertiesGroup(element,this._injector,[],[])
+        debugger;
         if (newGroup){
           groups.push(newGroup)
         }

@@ -13,7 +13,8 @@ export function getPropertyFromModdle(propertyName,moddle){
         foundModdleProperty = foundModdleProperty[0];
         return foundModdleProperty;
     }else{
-        console.error("There is not a valid moddle in the description file.")
+        //console.error("There is not a valid moddle in the description file.")
+        debugger;
         return null;
     }
 }
@@ -21,6 +22,9 @@ export function getPropertyFromModdle(propertyName,moddle){
 export function createPropertyGroupFromModdle(propertyName, element, injector, moddle, properties, index = 1){
     let entries = [];
     let foundModdleProperty = getPropertyFromModdle(propertyName,moddle)
+    if(!foundModdleProperty){
+        return
+    }
     let p;
     let l;
     let addButton;

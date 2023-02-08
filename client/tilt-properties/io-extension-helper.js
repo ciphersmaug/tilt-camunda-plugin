@@ -7,8 +7,13 @@ export function findExtensions(element, types) {
   if (!extensionElements) {
     return [];
   }
+  
+  const tiltValues = extensionElements.get("values").filter((value)=>{
+    return value.$type.includes("tilt:");
+  });
+
   if (types){
-    var properties = extensionElements.get('values').filter((value) => {
+    var properties = tiltValues.filter((value) => {
       return isAny(value, [].concat(types));
     });
     if (properties.length) {
@@ -17,7 +22,7 @@ export function findExtensions(element, types) {
       return [];
     }
   }else{
-    return extensionElements.get('values')
+    return tiltValues
   }
 }
 
