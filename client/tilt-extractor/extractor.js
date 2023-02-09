@@ -126,11 +126,20 @@ export function buildTiltDocument(canvas){
     }
     var tiltDocument = {};
     for(let i in fieldsToExtract){
-        tiltDocument[i] = cleanPropertyThroughSchema(
+        let extractName = i.split(":")[1];
+        extractName = extractName.charAt(0).toLowerCase() + extractName.slice(1);
+        let propertyArray = cleanPropertyThroughSchema(
             filterObjectsWithTiltProperty(
                 businessObjects,
                 i,
                 fieldsToExtract[i]));
+        tiltDocument[extractName] = propertyArray.filter((value, index) => {
+          const _value = JSON.stringify(value);
+          return index === propertyArray.findIndex(obj => {
+            return JSON.stringify(obj) === _value;
+          });
+        });
+        
     }
     return tiltDocument;
 }

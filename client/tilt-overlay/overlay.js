@@ -1,11 +1,15 @@
-import tiltIcon from "../../assets/tilt.svg";
-import tiltControllerIcon from "../../assets/crown-solid.svg"//controller.svg";
-import tiltDataDisclosedIcon from "../../assets/datadisclosed.svg";
-import flagIcon from "../../assets/flag.svg";
-import tiltSourceIcon from "../../assets/compass-regular.svg"
-import tiltAccess from "../../assets/accessible-icon.svg"
-import tiltRight from "../../assets/section-solid.svg"
-import tiltChange from "../../assets/bolt-solid.svg"
+import tiltIcon from "../../assets/circle-info-solid.svg";
+import tiltControllerIcon from "../../assets/building-solid.svg"//controller.svg";
+import tiltDataDisclosedIcon from "../../assets/file-solid.svg";
+import tiltFlagIcon from "../../assets/globe-solid.svg";
+import tiltSourceIcon from "../../assets/file-import-solid.svg"
+import tiltAccess from "../../assets/file-export-solid.svg"
+import tiltRightInform from "../../assets/section-solid.svg"
+import tiltRightRec from "../../assets/section-solid.svg"
+import tiltRightData from "../../assets/section-solid.svg"
+import tiltRightConsent from "../../assets/section-solid.svg"
+import tiltRightComplain from "../../assets/section-solid.svg"
+import tiltChange from "../../assets/file-pen-solid.svg"
 import tiltDataProtectionOfficerIcon from "../../assets/umbrella-solid.svg"//protection.svg";
 import tiltRepresentativeIcon from "../../assets/representative.svg"
 import tiltAuto from "../../assets/robot-solid.svg"
@@ -61,7 +65,7 @@ function addTiltOverlays(overlays,e){
           break;
         case "tilt:ThirdCountryTransfers":
           let countryCode = extensionElements.values[0].country;
-          addOverlay(overlays,element.id,countryCode, "filter-error", element.waypoints)
+          addOverlay(overlays,element.id,countryCode, "filter-tilt", element.waypoints)
           break;
         case "tilt:Sources":
           addOverlay(overlays,element.id,tiltSourceIcon);
@@ -75,13 +79,23 @@ function addTiltOverlays(overlays,e){
         case "tilt:AccessAndDataPortability":
           addOverlay(overlays,element.id,tiltAccess);
           break;
+        case "tilt:RightToRectificationOrDeletion":
+          addOverlay(overlays,element.id,tiltRightRec);
+          break;
+        case "tilt:RightToDataPortability":
+          addOverlay(overlays,element.id,tiltRightData);
+          break;
+        case "tilt:RightToWithdrawConsent":
+          addOverlay(overlays,element.id,tiltRightConsent);
+          break;
+        case "tilt:RightToComplain":
+          addOverlay(overlays,element.id,tiltRightComplain);
+          break;
+        case "tilt:RightToInformation":
+          addOverlay(overlays,element.id,tiltRightInform);
+          break;
         default:
-          if (arr[a].includes("Right")){
-            addOverlay(overlays,element.id,tiltRight)
-          }else{
-            addOverlay(overlays,element.id,tiltIcon)
-          }
-          
+            addOverlay(overlays,element.id,tiltIcon)          
           break;
           // code block
       }
@@ -90,7 +104,7 @@ function addTiltOverlays(overlays,e){
 }
 function getFlagEmoji(countryCode) {
   if(!countryCode){
-    countryCode = "un"
+    return tiltFlagIcon
   }
   const codePoints = countryCode
   .toUpperCase()

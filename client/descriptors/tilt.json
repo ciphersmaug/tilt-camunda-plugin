@@ -971,7 +971,7 @@
       ]
     },
     {
-      "name": "RightToInform",
+      "name": "RightToInformation",
       "label": "Right to inform",
       "superClass": [ "Element" ],
       "properties": [

@@ -17,12 +17,23 @@
     </bpmn:participant>
     <bpmn:messageFlow id="Flow_1e6rawn" sourceRef="Event_08lj2j1" targetRef="Event_0rx8m5r">
       <bpmn:extensionElements>
-        <tilt:thirdCountryTransfers country="DE" />
+        <tilt:thirdCountryTransfers country="US">
+          <tilt:adequacyDecision />
+        </tilt:thirdCountryTransfers>
       </bpmn:extensionElements>
     </bpmn:messageFlow>
     <bpmn:messageFlow id="Flow_0orgwda" sourceRef="Event_1h9h0pt" targetRef="Event_1u9a62x">
       <bpmn:extensionElements>
-        <tilt:thirdCountryTransfers country="US" />
+        <tilt:thirdCountryTransfers country="US">
+          <tilt:adequacyDecision />
+        </tilt:thirdCountryTransfers>
+      </bpmn:extensionElements>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="Flow_0ks2wz6" sourceRef="Activity_1xr7d3x" targetRef="Activity_18jhvl4">
+      <bpmn:extensionElements>
+        <tilt:thirdCountryTransfers country="US">
+          <tilt:adequacyDecision available="true" />
+        </tilt:thirdCountryTransfers>
       </bpmn:extensionElements>
     </bpmn:messageFlow>
   </bpmn:collaboration>
@@ -249,6 +260,10 @@
       <bpmndi:BPMNEdge id="Flow_0orgwda_di" bpmnElement="Flow_0orgwda">
         <di:waypoint x="810" y="536" />
         <di:waypoint x="810" y="265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ks2wz6_di" bpmnElement="Flow_0ks2wz6">
+        <di:waypoint x="663" y="510" />
+        <di:waypoint x="663" y="287" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

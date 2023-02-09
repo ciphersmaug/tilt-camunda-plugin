@@ -42,7 +42,7 @@ export default class TiltPropertiesExtensionProvider {
       }else if(getBusinessObject(element).$type.includes("EndEvent")) {
         groups.push(createTiltPropertiesGroup(element,this._injector,[
           new PropertyBlueprint("tilt:AccessAndDataPortability",{},null),
-          new PropertyBlueprint("tilt:RightToInform",{},null),
+          new PropertyBlueprint("tilt:RightToInformation",{},null),
           new PropertyBlueprint("tilt:RightToRectificationOrDeletion",{},null),
           new PropertyBlueprint("tilt:RightToDataPortability",{},null),
           new PropertyBlueprint("tilt:RightToWithdrawConsent",{},null),
