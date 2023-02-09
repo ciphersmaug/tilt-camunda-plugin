@@ -5,12 +5,12 @@ import tiltFlagIcon from "../../assets/globe-solid.svg";
 import tiltSourceIcon from "../../assets/file-import-solid.svg"
 import tiltAccess from "../../assets/file-export-solid.svg"
 import tiltRightInform from "../../assets/section-solid.svg"
-import tiltRightRec from "../../assets/section-solid.svg"
-import tiltRightData from "../../assets/section-solid.svg"
-import tiltRightConsent from "../../assets/section-solid.svg"
+import tiltRightRec from "../../assets/xmark-solid.svg"
+import tiltRightData from "../../assets/right-left-solid.svg"
+import tiltRightConsent from "../../assets/file-shield-solid.svg"
 import tiltRightComplain from "../../assets/section-solid.svg"
 import tiltChange from "../../assets/file-pen-solid.svg"
-import tiltDataProtectionOfficerIcon from "../../assets/umbrella-solid.svg"//protection.svg";
+import tiltDataProtectionOfficerIcon from "../../assets/circle-user-solid.svg"//protection.svg";
 import tiltRepresentativeIcon from "../../assets/representative.svg"
 import tiltAuto from "../../assets/robot-solid.svg"
 import { getBusinessObject } from "bpmn-js/lib/util/ModelUtil";
