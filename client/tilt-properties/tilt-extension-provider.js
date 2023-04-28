@@ -56,6 +56,12 @@ export default class TiltPropertiesExtensionProvider {
           new PropertyBlueprint("tilt:DataDisclosed",{},null)
           ],[Number.MAX_SAFE_INTEGER]));
       
+      }else if(getBusinessObject(element).$type.includes("Task")) {
+      
+        groups.push(createTiltPropertiesGroup(element,this._injector,[
+          new PropertyBlueprint("tilt:DataDisclosed",{},null)
+          ],[Number.MAX_SAFE_INTEGER]));
+      
       }else if(is(element, 'bpmn:MessageFlow')) {
       
         groups.push(createTiltPropertiesGroup(element,this._injector,[
